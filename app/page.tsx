@@ -26,8 +26,8 @@ export function validateStatus(status: string): StatusValue {
 
 export default function Dashboard() {
   return (
-    <div className="flex-1 sm:min-h-screen">
-      <div className="flex">
+    <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[45.625rem] w-full mx-auto">
+      <div className="flex justify-between">
         <div>
           <h1>Invoices</h1>
           <p>There are 7 total invoices</p>
@@ -37,10 +37,11 @@ export default function Dashboard() {
           <AddInvoice />
         </div>
       </div>
-      <div>
+      <div className="flex flex-col gap-4">
         {invoiceData.map((invoice) => {
           return (
             <Link
+              className="bg-white shadow-indigo-500/40 p-4 rounded-lg"
               key={invoice.id}
               href={invoice.id}
               aria-label={`Details for invoice #${invoice.id}`}

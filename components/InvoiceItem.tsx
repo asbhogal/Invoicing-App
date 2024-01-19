@@ -1,5 +1,6 @@
 import { formatCurrency } from "@/lib/functions/formatCurrency";
 import Status, { StatusValue } from "./Status";
+import { formatDate } from "@/lib/functions/formatDate";
 
 export interface Address {
   street: string;
@@ -38,11 +39,11 @@ export default function InvoiceItem({
   status,
 }: InvoiceData) {
   return (
-    <div className="flex justify-between">
-      <p className="font-bold">{`#${id}`}</p>
-      <p>{`Due ${paymentDue}`}</p>
+    <div className="flex items-center justify-between">
+      <p className="font-bold text-[0.9375rem]">{`#${id}`}</p>
+      <p>{`Due ${formatDate(paymentDue)}`}</p>
       <p>{clientName}</p>
-      <p>{formatCurrency(total)}</p>
+      <p className="font-bold text-[0.9375rem]">{formatCurrency(total)}</p>
       <Status status={status} />
     </div>
   );

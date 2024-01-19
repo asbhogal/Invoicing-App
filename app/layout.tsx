@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en" className={league_spartan.className}>
       <body className="flex flex-col sm:flex-row">
         <Navbar />
-        <main className="flex flex-1">{children}</main>
+        <main className="flex flex-1 bg-ghostWhite">{children}</main>
       </body>
     </html>
   );
