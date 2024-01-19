@@ -1,5 +1,6 @@
 import { league_spartan } from "@/lib/fonts";
 import "./globals.css";
+import Navbar from "@/components/Nav";
 
 export default function RootLayout({
   children,
@@ -8,8 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={league_spartan.className}>
-      <body>
-        <main>{children}</main>
+      <body className="flex flex-col sm:flex-row">
+        <Navbar />
+        <main className="flex flex-1">{children}</main>
       </body>
     </html>
   );
