@@ -11,11 +11,11 @@ const config = {
   prefix: "",
   theme: {
     screens: {
-      xs: "375px",
-      sm: "768px",
-      md: "1024px",
-      lg: "1440px",
-      xl: "2560px",
+      xs: "23.4375rem",
+      sm: "48rem",
+      md: "64rem",
+      lg: "90rem",
+      xl: "160rem",
     },
     container: {
       center: true,
@@ -25,14 +25,18 @@ const config = {
       },
     },
     colors: {
-      black: "#000000",
-      chineseBlack: "#101010",
-      gray: "#808080",
-      red: "#ff0000",
-      jasperOrange: "#d87d4a",
-      atomicTangerine: "#fbaf85",
-      antiFlashWhite: "#f1f1f1",
-      lotion: "#fafafa",
+      violets01: "#7C5DFA",
+      violets02: "#9277FF",
+      yankeesBlue01: "#1E2139",
+      yankeesBlue02: "#252945",
+      lavender: "#dfe3fa",
+      coolGrey: "#8883b0",
+      ube: "#7E88C3",
+      chineseBlack: "#16140C",
+      fireOpal: "#EC5757",
+      americanPink: "#FF9797",
+      ghostWhite: "#f8f8fb",
+      eerieBlack: "#141625",
     },
     extend: {
       keyframes: {
