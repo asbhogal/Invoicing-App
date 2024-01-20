@@ -27,9 +27,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "./ui/button";
-import { toast } from "sonner";
 import { Input } from "./ui/input";
 import { Calendar } from "./ui/calendar";
+
+export const netPaymentData: NetPaymentDataType[] = [
+  "1 Day",
+  "7 Days",
+  "14 Days",
+  "30 Days",
+];
+
+export type NetPaymentDataType = "1 Day" | "7 Days" | "14 Days" | "30 Days";
 
 export const InvoiceFormSchema = z.object({
   businessAddress: z
@@ -160,7 +168,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
           name="clientName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="form-label">Client's Name</FormLabel>
+              <FormLabel className="form-label">Client&apos;s Name</FormLabel>
               <FormControl>
                 <Input placeholder="Alex Grim" {...field} />
               </FormControl>
@@ -173,7 +181,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
           name="clientEmail"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="form-label">Client's Email</FormLabel>
+              <FormLabel className="form-label">Client&apos;s Email</FormLabel>
               <FormControl>
                 <Input placeholder="alexgrim@example.com" {...field} />
               </FormControl>
@@ -186,7 +194,9 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
           name="clientAddress"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="form-label">Client's Address</FormLabel>
+              <FormLabel className="form-label">
+                Client&apos;s Address
+              </FormLabel>
               <FormControl>
                 <Input placeholder="19 Union Terrace" {...field} />
               </FormControl>
@@ -240,14 +250,14 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
             control={form.control}
             name="invoiceDate"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel className="form-label">Invoice Date</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
                         className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
+                          "w-[240px] pl-3 text-left font-normal bg-white hover:bg-white",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -256,7 +266,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                         ) : (
                           <span>Pick a date</span>
                         )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        <CalendarIcon className="ml-auto h-4 w-4" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
@@ -285,7 +295,21 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                ></Select>
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a payment term" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {netPaymentData.map((option) => (
+                      <SelectItem key={option} value={option}>
+                        {`Net ${option}`}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
               </FormItem>
             )}
           />
