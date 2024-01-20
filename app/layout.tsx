@@ -1,6 +1,7 @@
 import { league_spartan } from "@/lib/fonts";
 import "./globals.css";
 import Navbar from "@/components/Nav";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -12,6 +13,7 @@ export default function RootLayout({
       <body className="flex flex-col sm:flex-row">
         <Navbar />
         <main className="flex flex-1 bg-ghostWhite">{children}</main>
+        <Toaster />
       </body>
     </html>
   );

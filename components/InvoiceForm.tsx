@@ -4,15 +4,6 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   Form,
   FormControl,
   FormField,
@@ -23,7 +14,6 @@ import {
 import { Button } from "./ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { toast } from "sonner";
-import { InvoiceForm } from "./InvoiceForm";
 
 export const InvoiceFormSchema = z.object({
   name: z.string().min(3, { message: "Name must be at least 3 characters" }),
@@ -45,27 +35,32 @@ export const InvoiceFormSchema = z.object({
   price: z.number(),
 });
 
-export default function AddInvoice() {
-  function onSubmit(data: z.infer<typeof InvoiceFormSchema>) {
-    toast("Invoice saved");
-    console.log(data);
-  }
+interface InvoiceFormProps {
+  onSubmit: (data: z.infer<typeof InvoiceFormSchema>) => void;
+}
+
+export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
+  const form = useForm<z.infer<typeof InvoiceFormSchema>>({
+    resolver: zodResolver(InvoiceFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      address: "",
+      city: "",
+      zip: "",
+      country: "",
+      phone: "",
+      project: "",
+      item: "",
+      quantity: 0,
+      price: 0,
+    },
+  });
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Add Invoice</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>Add Invoice</DialogHeader>
-        <InvoiceForm onSubmit={onSubmit} />
-        <DialogFooter>
-          <Button type="submit">Save</Button>
-          <DialogClose asChild>
-            <Button>Cancel</Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}></form>
+      <p>TEST</p>
+    </Form>
   );
 }
