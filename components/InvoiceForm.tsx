@@ -70,9 +70,9 @@ export const InvoiceFormSchema = z.object({
   paymentTerms: z.string({
     required_error: "Please select the payment terms.",
   }),
-  projectDescription: z
+  projectName: z
     .string()
-    .min(3, { message: "Project description must be at least 3 characters" }),
+    .min(3, { message: "Project name must be at least 3 characters" }),
   item: z.string().min(3, { message: "Item must be at least 3 characters" }),
   quantity: z.number(),
   price: z.number(),
@@ -85,6 +85,7 @@ export interface InvoiceFormProps {
 export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
   const form = useForm<z.infer<typeof InvoiceFormSchema>>({
     resolver: zodResolver(InvoiceFormSchema),
+    mode: "onChange",
     defaultValues: {
       businessAddress: "",
       businessCity: "",
@@ -97,12 +98,16 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
       clientZip: "",
       clientCountry: "",
       paymentTerms: "",
-      projectDescription: "",
+      projectName: "",
       item: "",
       quantity: 0,
       price: 0,
     },
   });
+
+  const {
+    formState: { isValid },
+  } = form;
 
   return (
     <Form {...form}>
@@ -115,7 +120,11 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
             <FormItem>
               <FormLabel className="form-label">Street Address</FormLabel>
               <FormControl>
-                <Input placeholder="19 Union Terrace" {...field} />
+                <Input
+                  placeholder="19 Union Terrace"
+                  className="capitalize"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -142,7 +151,11 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               <FormItem>
                 <FormLabel className="form-label">Post Code</FormLabel>
                 <FormControl>
-                  <Input placeholder="E1 3EZ" {...field} />
+                  <Input
+                    placeholder="E1 3EZ"
+                    className="uppercase"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -170,7 +183,11 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
             <FormItem>
               <FormLabel className="form-label">Client&apos;s Name</FormLabel>
               <FormControl>
-                <Input placeholder="Alex Grim" {...field} />
+                <Input
+                  placeholder="Alex Grim"
+                  className="capitalize"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -212,7 +229,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               <FormItem>
                 <FormLabel className="form-label">City</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="Bath" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -225,7 +242,11 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               <FormItem>
                 <FormLabel className="form-label">Postal Code</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input
+                    placeholder="BT23 16D"
+                    className="uppercase"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -238,7 +259,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               <FormItem>
                 <FormLabel className="form-label">Country</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="United Kingdom" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -314,7 +335,54 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
             )}
           />
         </div>
-        <Button type="submit">Save</Button>
+        <FormField
+          control={form.control}
+          name="projectName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="form-label">Project Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Create business cards" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="item"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="form-label">Item</FormLabel>
+                <FormControl>
+                  <Input placeholder="Create business cards" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="grid grid-cols-2">
+            <div>
+              <FormField
+                control={form.control}
+                name="quantity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Quantity</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        </div>
+        <Button type="submit" disabled={!isValid}>
+          Save
+        </Button>
       </form>
     </Form>
   );
