@@ -24,7 +24,7 @@ export default function AddInvoice() {
       <DialogTrigger asChild>
         <Button>Add Invoice</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-[800px]">
         <DialogHeader>Add Invoice</DialogHeader>
         <InvoiceForm onSubmit={onSubmit} />
       </DialogContent>

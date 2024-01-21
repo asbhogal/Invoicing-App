@@ -74,7 +74,9 @@ export const InvoiceFormSchema = z.object({
   projectName: z
     .string()
     .min(3, { message: "Project name must be at least 3 characters" }),
-  item: z.string().min(3, { message: "Item must be at least 3 characters" }),
+  deliverable: z
+    .string()
+    .min(3, { message: "Deliverable must be at least 3 characters" }),
   quantity: z.number(),
   price: z.number(),
 });
@@ -100,7 +102,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
       clientCountry: "",
       paymentTerms: "",
       projectName: "",
-      item: "",
+      deliverable: "",
       quantity: 0,
       price: 0,
     },
@@ -113,159 +115,169 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <p>Bill From</p>
-        <FormField
-          control={form.control}
-          name="businessAddress"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="form-label">Street Address</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="19 Union Terrace"
-                  className="capitalize"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <FormField
-            control={form.control}
-            name="businessCity"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">City</FormLabel>
-                <FormControl>
-                  <Input placeholder="London" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="businessZip"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Post Code</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="E1 3EZ"
-                    className="uppercase"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="businessCountry"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Country</FormLabel>
-                <FormControl>
-                  <Input placeholder="United Kingdom" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <p>Bill To</p>
-        <FormField
-          control={form.control}
-          name="clientName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="form-label">Client&apos;s Name</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Alex Grim"
-                  className="capitalize"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="clientEmail"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="form-label">Client&apos;s Email</FormLabel>
-              <FormControl>
-                <Input placeholder="alexgrim@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="clientAddress"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="form-label">
-                Client&apos;s Address
-              </FormLabel>
-              <FormControl>
-                <Input placeholder="19 Union Terrace" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <FormField
-            control={form.control}
-            name="clientCity"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">City</FormLabel>
-                <FormControl>
-                  <Input placeholder="Bath" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="clientZip"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Postal Code</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="BT23 16D"
-                    className="uppercase"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="clientCountry"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Country</FormLabel>
-                <FormControl>
-                  <Input placeholder="United Kingdom" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div>
+            <p>Bill From</p>
+            <FormField
+              control={form.control}
+              name="businessAddress"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="form-label">Street Address</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="19 Union Terrace"
+                      className="capitalize"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="businessCity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">City</FormLabel>
+                    <FormControl>
+                      <Input placeholder="London" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="businessZip"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Post Code</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="E1 3EZ"
+                        className="uppercase"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="businessCountry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="form-label">Country</FormLabel>
+                  <FormControl>
+                    <Input placeholder="United Kingdom" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+            <p>Bill To</p>
+            <FormField
+              control={form.control}
+              name="clientName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="form-label">
+                    Client&apos;s Name
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Alex Grim"
+                      className="capitalize"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="clientEmail"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="form-label">
+                    Client&apos;s Email
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="alexgrim@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="clientAddress"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="form-label">
+                    Client&apos;s Address
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="19 Union Terrace" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="clientCity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">City</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Bath" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="clientZip"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Postal Code</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="BT23 16D"
+                        className="uppercase"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
+              name="clientCountry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="form-label">Country</FormLabel>
+                  <FormControl>
+                    <Input placeholder="United Kingdom" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2">
           <FormField
@@ -353,10 +365,10 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <FormField
               control={form.control}
-              name="item"
+              name="deliverable"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="form-label">Item</FormLabel>
+                  <FormLabel className="form-label">Deliverable</FormLabel>
                   <FormControl>
                     <Input placeholder="Create business cards" {...field} />
                   </FormControl>
@@ -393,8 +405,8 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                   )}
                 />
               </div>
-              <div className="flex items-center">
-                <p>TOTAL</p>
+              <div className="flex items-center justify-between">
+                <p>£0</p>
                 <Button className="p-0 bg-transparent hover:bg-transparent">
                   <Icon
                     svgProps={{
