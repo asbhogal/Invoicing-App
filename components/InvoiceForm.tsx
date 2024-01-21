@@ -4,7 +4,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Trash, TrashIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Form,
@@ -363,7 +363,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
             )}
           />
           <div className="grid grid-cols-2">
-            <div>
+            <div className="flex">
               <FormField
                 control={form.control}
                 name="quantity"
@@ -377,6 +377,25 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Price</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex">
+              <p>TOTAL</p>
+              <Button className="p-0 hover:bg-transparent">
+                <TrashIcon className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </div>
