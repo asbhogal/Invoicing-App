@@ -29,6 +29,7 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Calendar } from "./ui/calendar";
+import Icon from "./Icon";
 
 export const netPaymentData: NetPaymentDataType[] = [
   "1 Day",
@@ -348,60 +349,85 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <FormField
-            control={form.control}
-            name="item"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Item</FormLabel>
-                <FormControl>
-                  <Input placeholder="Create business cards" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid grid-cols-2">
-            <div className="flex">
-              <FormField
-                control={form.control}
-                name="quantity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">Quantity</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">Price</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex">
-              <p>TOTAL</p>
-              <Button className="p-0 hover:bg-transparent">
-                <TrashIcon className="w-4 h-4" />
-              </Button>
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <FormField
+              control={form.control}
+              name="item"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="form-label">Item</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Create business cards" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-2">
+              <div className="flex">
+                <FormField
+                  control={form.control}
+                  name="quantity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">Quantity</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">Price</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="flex items-center">
+                <p>TOTAL</p>
+                <Button className="p-0 bg-transparent hover:bg-transparent">
+                  <Icon
+                    svgProps={{
+                      width: "13",
+                      height: "16",
+                      viewBox: "0 0 13 16",
+                      fill: "none",
+                      xmlns: "http://www.w3.org/2000/svg",
+                    }}
+                  >
+                    <path
+                      id="Combined Shape"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M8.47225 0L9.36117 0.888875H12.4722V2.66667H0.027832V0.888875H3.13892L4.02783 0H8.47225ZM2.6945 16C1.71225 16 0.916707 15.2045 0.916707 14.2222V3.55554H11.5834V14.2222C11.5834 15.2045 10.7878 16 9.80562 16H2.6945Z"
+                      fill="#888EB0"
+                    />
+                  </Icon>
+                </Button>
+              </div>
             </div>
           </div>
+          <Button className="w-full">+ Add New Item</Button>
         </div>
-        <Button type="submit" disabled={!isValid}>
-          Save
-        </Button>
+        <div className="flex justify-between">
+          <Button>Discard</Button>
+          <div>
+            <Button>Save as Draft</Button>
+            <Button type="submit" disabled={!isValid}>
+              Send
+            </Button>
+          </div>
+        </div>
       </form>
     </Form>
   );

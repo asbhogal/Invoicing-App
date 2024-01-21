@@ -27,11 +27,6 @@ export default function AddInvoice() {
       <DialogContent>
         <DialogHeader>Add Invoice</DialogHeader>
         <InvoiceForm onSubmit={onSubmit} />
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button>Cancel</Button>
-          </DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
