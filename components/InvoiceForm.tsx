@@ -86,7 +86,7 @@ export const InvoiceFormSchema = z.object({
     .string()
     .min(3, { message: "Project name must be at least 3 characters" }),
 
-  deliverables: z.array(
+  /* deliverables: z.array(
     z.object({
       id: z.string(),
       deliverable: z
@@ -95,7 +95,7 @@ export const InvoiceFormSchema = z.object({
       quantity: z.number(),
       price: z.number(),
     })
-  ),
+  ), */
 });
 
 export interface InvoiceFormProps {
@@ -145,7 +145,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
 
   const form = useForm<z.infer<typeof InvoiceFormSchema>>({
     resolver: zodResolver(InvoiceFormSchema),
-    mode: "onSubmit",
+    mode: "onChange",
     defaultValues: {
       businessAddress: "",
       businessCity: "",
@@ -159,7 +159,8 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
       clientCountry: "",
       paymentTerms: "",
       projectName: "",
-      deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
+      /*       deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
+       */
     },
   });
 
@@ -417,100 +418,86 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               </FormItem>
             )}
           />
-          <div>
-            {deliverables.map((deliverable, index) => (
-              <div
-                key={deliverable.id}
-                className="grid grid-cols-1 md:grid-cols-2"
-              >
-                <FormField
-                  control={form.control}
-                  name={`deliverables.${index}.deliverable`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="form-label">Deliverable</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Name of deliverable" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="grid grid-cols-2">
-                  <div className="flex">
-                    <FormField
-                      control={form.control}
-                      name={`deliverables.${index}.quantity`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="form-label">Quantity</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              {...field}
-                              value={field.value || 0}
-                              onChange={(e) =>
-                                field.onChange(parseInt(e.target.value) || 0)
-                              }
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name={`deliverables.${index}.price`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="form-label">Price</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              {...field}
-                              value={field.value || 0}
-                              onChange={(e) =>
-                                field.onChange(parseInt(e.target.value) || 0)
-                              }
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <p>{formatCurrency(total)}</p>
-                    <Button
-                      className="p-0 bg-transparent hover:bg-transparent"
-                      onClick={() => handleDeleteDeliverable(deliverable.id)}
+          {/* <div>
+          {deliverables.map((deliverable, index) => (
+            <div
+              key={deliverable.id}
+              className="grid grid-cols-1 md:grid-cols-2"
+            >
+              <FormField
+                control={form.control}
+                name={`deliverables.${index}.deliverable`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Deliverable</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Create business cards" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid grid-cols-2">
+                <div className="flex">
+                  <FormField
+                    control={form.control}
+                    name={`deliverables.${index}.quantity`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="form-label">Quantity</FormLabel>
+                        <FormControl>
+                          <Input type="number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`deliverables.${index}.price`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="form-label">Price</FormLabel>
+                        <FormControl>
+                          <Input type="number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <p>{formatCurrency(total)}</p>
+                  <Button
+                    className="p-0 bg-transparent hover:bg-transparent"
+                    onClick={() => handleDeleteDeliverable}
+                  >
+                    <Icon
+                      svgProps={{
+                        width: "13",
+                        height: "16",
+                        viewBox: "0 0 13 16",
+                        fill: "none",
+                        xmlns: "http://www.w3.org/2000/svg",
+                      }}
                     >
-                      <Icon
-                        svgProps={{
-                          width: "13",
-                          height: "16",
-                          viewBox: "0 0 13 16",
-                          fill: "none",
-                          xmlns: "http://www.w3.org/2000/svg",
-                        }}
-                      >
-                        <path
-                          id="Combined Shape"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M8.47225 0L9.36117 0.888875H12.4722V2.66667H0.027832V0.888875H3.13892L4.02783 0H8.47225ZM2.6945 16C1.71225 16 0.916707 15.2045 0.916707 14.2222V3.55554H11.5834V14.2222C11.5834 15.2045 10.7878 16 9.80562 16H2.6945Z"
-                          fill="#888EB0"
-                        />
-                      </Icon>
-                    </Button>
-                  </div>
+                      <path
+                        id="Combined Shape"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M8.47225 0L9.36117 0.888875H12.4722V2.66667H0.027832V0.888875H3.13892L4.02783 0H8.47225ZM2.6945 16C1.71225 16 0.916707 15.2045 0.916707 14.2222V3.55554H11.5834V14.2222C11.5834 15.2045 10.7878 16 9.80562 16H2.6945Z"
+                        fill="#888EB0"
+                      />
+                    </Icon>
+                  </Button>
                 </div>
               </div>
-            ))}
-            <Button className="w-full" onClick={handleAddNewDeliverable}>
-              + Add New Item
-            </Button>
-          </div>
+            </div>
+          ))}
+          <Button className="w-full" onClick={handleAddNewDeliverable}>
+            + Add New Item
+          </Button>
+        </div> */}
           <div className="flex justify-between">
             <Button>Discard</Button>
             <div>
