@@ -34,6 +34,9 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { formatCurrency } from "@/lib/functions/formatCurrency";
 import { ScrollArea } from "./ui/scroll-area";
+import useSWR from "swr";
+import { fetcher } from "@/lib/functions/fetcher";
+import { Countries } from "@/types/countries";
 
 export const netPaymentData: NetPaymentDataType[] = [
   "1 Day",
@@ -107,6 +110,12 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
     { id: uuidv4(), deliverable: "", quantity: 0, price: 0 },
   ]);
   const [total, setTotal] = useState(calculateTotal());
+
+  const {
+    data: countries,
+    error,
+    isLoading,
+  } = useSWR<Countries>("https://restcountries.com/v3.1/all", fetcher);
 
   function calculateTotal() {
     return deliverables.reduce(
@@ -230,9 +239,37 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="form-label">Country</FormLabel>
-                    <FormControl>
-                      <Input placeholder="United Kingdom" {...field} />
-                    </FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a country" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {error ? (
+                          <p>Error getting countries</p>
+                        ) : !countries ? (
+                          <p>Loading countries...</p>
+                        ) : (
+                          countries
+                            .sort((a, b) =>
+                              a.name.common.localeCompare(b.name.common)
+                            )
+                            .map((country) => (
+                              <SelectItem
+                                className="cursor-pointer"
+                                key={country.cca3}
+                                value={country.name.common}
+                              >
+                                {country.name.common}
+                              </SelectItem>
+                            ))
+                        )}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -327,9 +364,37 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="form-label">Country</FormLabel>
-                    <FormControl>
-                      <Input placeholder="United Kingdom" {...field} />
-                    </FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a country" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {error ? (
+                          <p>Error getting countries</p>
+                        ) : !countries ? (
+                          <p>Loading countries...</p>
+                        ) : (
+                          countries
+                            .sort((a, b) =>
+                              a.name.common.localeCompare(b.name.common)
+                            )
+                            .map((country) => (
+                              <SelectItem
+                                className="cursor-pointer"
+                                key={country.cca3}
+                                value={country.name.common}
+                              >
+                                {country.name.common}
+                              </SelectItem>
+                            ))
+                        )}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

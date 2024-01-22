@@ -4,7 +4,6 @@ import * as z from "zod";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
