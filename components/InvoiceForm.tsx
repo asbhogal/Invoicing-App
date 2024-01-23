@@ -30,7 +30,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Calendar } from "./ui/calendar";
 import Icon from "./Icon";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { formatCurrency } from "@/lib/functions/formatCurrency";
 import { ScrollArea } from "./ui/scroll-area";
@@ -116,6 +116,12 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
     error,
     isLoading,
   } = useSWR<Countries>("https://restcountries.com/v3.1/all", fetcher);
+
+  const sortedCountries = useMemo(() => {
+    return countries?.sort((a, b) =>
+      a.name.common.localeCompare(b.name.common)
+    );
+  }, [countries]);
 
   function calculateTotal() {
     return deliverables.reduce(
@@ -376,22 +382,18 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                       <SelectContent>
                         {error ? (
                           <p>Error getting countries</p>
-                        ) : !countries ? (
+                        ) : !sortedCountries ? (
                           <p>Loading countries...</p>
                         ) : (
-                          countries
-                            .sort((a, b) =>
-                              a.name.common.localeCompare(b.name.common)
-                            )
-                            .map((country) => (
-                              <SelectItem
-                                className="cursor-pointer"
-                                key={country.cca3}
-                                value={country.name.common}
-                              >
-                                {country.name.common}
-                              </SelectItem>
-                            ))
+                          sortedCountries.map((country) => (
+                            <SelectItem
+                              className="cursor-pointer"
+                              key={country.cca3}
+                              value={country.name.common}
+                            >
+                              {country.name.common}
+                            </SelectItem>
+                          ))
                         )}
                       </SelectContent>
                     </Select>
