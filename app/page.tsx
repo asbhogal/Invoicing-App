@@ -24,16 +24,21 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        {invoiceData.map((invoice) => {
+        {invoiceData.map((invoice, index) => {
           return (
-            <Link
-              className="bg-white shadow-indigo-500/40 p-4 rounded-lg"
-              key={invoice.id}
-              href={invoice.id}
-              aria-label={`Details for invoice #${invoice.id}`}
-            >
-              <InvoiceItem {...invoice} />
-            </Link>
+            <>
+              <Link
+                className="p-4"
+                key={invoice.id}
+                href={invoice.id}
+                aria-label={`Details for invoice #${invoice.id}`}
+              >
+                <InvoiceItem {...invoice} />
+              </Link>
+              {index < invoiceData.length - 1 && (
+                <div className="border border-blackOlive" />
+              )}
+            </>
           );
         })}
       </div>

@@ -26,18 +26,22 @@ const config = {
     },
     extend: {
       colors: {
-        violets01: "#7C5DFA",
-        violets02: "#9277FF",
-        yankeesBlue01: "#1E2139",
-        yankeesBlue02: "#252945",
-        lavender: "#dfe3fa",
-        coolGrey: "#8883b0",
-        ube: "#7E88C3",
-        chineseBlack: "#16140C",
-        fireOpal: "#EC5757",
-        americanPink: "#FF9797",
-        ghostWhite: "#f8f8fb",
-        eerieBlack: "#141625",
+        /* PRIMARY */
+        blackOlive: "#3C3633",
+        darkPuce: "#4A4542",
+        nickel: "#777270",
+        /* NEUTRALS */
+        brightGray: "#EBECEE",
+        silverSand: "#C0C1C2",
+        antiFlashWhite: "#F1F2F3",
+        /* SUPPORTING - BASE */
+        dustStorm: "#E0CCBE",
+        silverPink: "#C3B5AB",
+        whiteChocolate: "#F0E6DF",
+        /* SUPPORTING - ACCENT */
+        darkSilver: "#747264",
+        spanishGrey: "#9E9C93",
+        paleSilver: "#C7C7C1",
       },
       keyframes: {
         "accordion-down": {
