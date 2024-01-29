@@ -14,8 +14,27 @@ import { InvoiceForm, InvoiceFormSchema } from "./InvoiceForm";
 
 export default function AddInvoice() {
   function onSubmit(data: z.infer<typeof InvoiceFormSchema>) {
-    toast("Invoice saved");
-    console.log(data);
+    fetch("/api/submitInvoice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to submit invoice");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        toast("Invoice saved");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast("Error saving invoice");
+      });
   }
 
   return (
