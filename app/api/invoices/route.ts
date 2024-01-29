@@ -17,9 +17,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  console.log("Raw request body:", request.body); // Log raw request body
+
   try {
     const body = await request.json();
-    const invoiceData = body.formData;
+    console.log("Parsed request body:", body); // Log parsed request body
+    const invoiceData = body;
+    console.log("Invoice data to be saved:", invoiceData); // Log the extracted invoice data
 
     await Invoice.create(invoiceData);
 

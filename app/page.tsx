@@ -2,9 +2,7 @@ import AddInvoice from "@/components/AddInvoice";
 import InvoiceItem, { InvoiceData } from "@/components/InvoiceItem";
 import type { Metadata } from "next";
 import Link from "next/link";
-import invoiceDataJson from "@/lib/data.json";
 import Filter from "@/components/Filter";
-const invoiceData: InvoiceData[] = invoiceDataJson as InvoiceData[];
 
 export const metadata: Metadata = {
   title: "Invoicing App",
@@ -12,22 +10,20 @@ export const metadata: Metadata = {
 };
 
 export async function getInvoices() {
-  try {
-    const res = await fetch("/api/invoices");
+  const res = await fetch("http://localhost:3000/api/invoices", {
+    cache: "no-store",
+  });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch invoices");
-    }
-
-    return res.json;
-  } catch (error) {
-    console.log("Error fetching invoices", error);
+  if (!res.ok) {
+    throw new Error("Failed to fetch invoices");
   }
+
+  return res.json();
 }
 
 export default async function Dashboard() {
   const data = await getInvoices();
-
+  console.log(data);
   const invoices = data?.invoices;
   return (
     <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[45.625rem] w-full mx-auto">
@@ -42,25 +38,24 @@ export default async function Dashboard() {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        {!data?.invoices && <p>No invoices</p>}
-        {invoices &&
-          invoiceData.map((invoice, index) => {
-            return (
-              <>
-                <Link
-                  className="p-4"
-                  key={invoice.id}
-                  href={invoice.id}
-                  aria-label={`Details for invoice #${invoice.id}`}
-                >
-                  <InvoiceItem {...invoice} />
-                </Link>
-                {index < invoiceData.length - 1 && (
-                  <div className="border border-blackOlive" />
-                )}
-              </>
-            );
-          })}
+        {invoices.length === 0 && <p>No invoices</p>}
+        {invoices.map((invoice: InvoiceData, index: number) => {
+          return (
+            <>
+              <Link
+                className="p-4"
+                key={invoice._id}
+                href={`/invoices/${invoice._id}`}
+                aria-label={`Details for invoice #${invoice._id}`}
+              >
+                <InvoiceItem {...invoice} />
+              </Link>
+              {index < invoices.length - 1 && (
+                <div className="border border-blackOlive" />
+              )}
+            </>
+          );
+        })}
       </div>
     </div>
   );

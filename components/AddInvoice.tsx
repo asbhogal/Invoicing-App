@@ -34,6 +34,7 @@ export default function AddInvoice() {
       .catch((error) => {
         console.error(error);
         toast("Error saving invoice");
+        console.log(data);
       });
   }
 

@@ -17,7 +17,7 @@ export interface Item {
 }
 
 export interface InvoiceData {
-  id: string;
+  _id: string;
   createdAt: string;
   paymentDue: string;
   description: string;
@@ -32,7 +32,7 @@ export interface InvoiceData {
 }
 
 export default function InvoiceItem({
-  id,
+  _id,
   paymentDue,
   clientName,
   total,
@@ -40,8 +40,8 @@ export default function InvoiceItem({
 }: InvoiceData) {
   return (
     <div className="flex items-center justify-between">
-      <p className="font-bold text-[0.9375rem]">{`#${id}`}</p>
-      <p>{`Due ${formatDate(paymentDue)}`}</p>
+      <p className="font-bold text-[0.9375rem]">{`#${_id}`}</p>
+      <p>{`Due ${paymentDue}`}</p>
       <p>{clientName}</p>
       <p className="font-bold text-[0.9375rem]">{formatCurrency(total)}</p>
       <Status status={status} />
