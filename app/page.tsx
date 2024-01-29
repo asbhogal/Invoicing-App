@@ -3,23 +3,12 @@ import InvoiceItem, { InvoiceData } from "@/components/InvoiceItem";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Filter from "@/components/Filter";
+import { getInvoices } from "@/lib/functions/fetcher";
 
 export const metadata: Metadata = {
   title: "Invoicing App",
   description: "Invoicing app",
 };
-
-export async function getInvoices() {
-  const res = await fetch("http://localhost:3000/api/invoices", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch invoices");
-  }
-
-  return res.json();
-}
 
 export default async function Dashboard() {
   const data = await getInvoices();
