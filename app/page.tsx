@@ -28,11 +28,7 @@ export async function getInvoices() {
 export default async function Dashboard() {
   const data = await getInvoices();
 
-  if (!data?.invoices) {
-    return <p>No invoices</p>;
-  }
-
-  const invoices = data.invoices;
+  const invoices = data?.invoices;
   return (
     <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[45.625rem] w-full mx-auto">
       <div className="flex justify-between">
@@ -46,6 +42,7 @@ export default async function Dashboard() {
         </div>
       </div>
       <div className="flex flex-col gap-4">
+        {!data?.invoices && <p>No invoices</p>}
         {invoices &&
           invoiceData.map((invoice, index) => {
             return (

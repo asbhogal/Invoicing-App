@@ -14,7 +14,7 @@ import { InvoiceForm, InvoiceFormSchema } from "./InvoiceForm";
 
 export default function AddInvoice() {
   function onSubmit(data: z.infer<typeof InvoiceFormSchema>) {
-    fetch("/api/submitInvoice", {
+    fetch("/api/invoices", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
