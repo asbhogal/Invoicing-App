@@ -1,6 +1,4 @@
-import clientPromise from "@/lib/mongodb";
 import Invoice from "@/models/Invoice";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -17,13 +15,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  console.log("Raw request body:", request.body); // Log raw request body
+  console.log("Raw request body:", request.body);
 
   try {
     const body = await request.json();
-    console.log("Parsed request body:", body); // Log parsed request body
+    console.log("Parsed request body:", body);
     const invoiceData = body;
-    console.log("Invoice data to be saved:", invoiceData); // Log the extracted invoice data
+    console.log("Invoice data to be saved:", invoiceData);
 
     await Invoice.create(invoiceData);
 

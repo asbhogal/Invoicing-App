@@ -1,32 +1,6 @@
-import { InvoiceData } from "./InvoiceItem";
+import { StatusProps } from "@/lib/types/props";
 import { Badge } from "./ui/badge";
-
-export interface StatusProps {
-  status: StatusValue;
-}
-
-export type StatusValue =
-  | "paid"
-  | "pending"
-  | "draft"
-  | "overdue"
-  | "cancelled";
-
-export const statusBgClassMap: Record<StatusValue, string> = {
-  paid: "#EDFFF1",
-  pending: "#FFF9EA",
-  draft: "#f4f4f5",
-  overdue: "#FFC4C4",
-  cancelled: "#dfe3fa",
-};
-
-export const statusTextClassMap: Record<StatusValue, string> = {
-  paid: "#0B2E23",
-  pending: "#754C00",
-  draft: "#373b53",
-  overdue: "#782C44",
-  cancelled: "#000000",
-};
+import { statusBgClassMap, statusTextClassMap } from "@/lib/types/data";
 
 export default function Status({ status }: StatusProps) {
   const backgroundColor = statusBgClassMap[status];

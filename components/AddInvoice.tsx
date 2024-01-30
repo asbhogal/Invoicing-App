@@ -8,9 +8,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { DialogClose } from "@radix-ui/react-dialog";
 import { toast } from "sonner";
-import { InvoiceForm, InvoiceFormSchema } from "./InvoiceForm";
+import { InvoiceForm } from "./InvoiceForm";
+import { InvoiceFormSchema } from "@/lib/types/schemas";
 
 export default function AddInvoice() {
   function onSubmit(data: z.infer<typeof InvoiceFormSchema>) {
@@ -41,7 +41,7 @@ export default function AddInvoice() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Invoice</Button>
+        <Button className="rounded-none">Add Invoice</Button>
       </DialogTrigger>
       <DialogContent className="max-w-[850px]">
         <DialogHeader>Add Invoice</DialogHeader>

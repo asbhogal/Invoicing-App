@@ -3,8 +3,8 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { format } from "date-fns";
-import { CalendarIcon, Trash, TrashIcon } from "lucide-react";
+import { addDays, format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Form,
@@ -29,87 +29,71 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Calendar } from "./ui/calendar";
-import Icon from "./Icon";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { formatCurrency } from "@/lib/functions/formatCurrency";
 import { ScrollArea } from "./ui/scroll-area";
 import useSWR from "swr";
 import { fetcher } from "@/lib/functions/fetcher";
 import { Countries } from "@/types/countries";
+import { InvoiceFormSchema } from "@/lib/types/schemas";
+import { netPaymentData, status } from "@/lib/data";
+import { Deliverable } from "@/lib/types/data";
+import { InvoiceFormProps } from "@/lib/types/props";
 
-export const netPaymentData: NetPaymentDataType[] = [
-  "1 Day",
-  "7 Days",
-  "14 Days",
-  "30 Days",
-];
+function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
+  const daysToAdd =
+    {
+      "1 Day": 1,
+      "7 Days": 7,
+      "14 Days": 14,
+      "30 Days": 30,
+    }[paymentTerms] || 0;
 
-export type NetPaymentDataType = "1 Day" | "7 Days" | "14 Days" | "30 Days";
-
-export interface Deliverable {
-  id: string;
-  deliverable: string;
-  quantity: number;
-  price: number;
-}
-
-export const InvoiceFormSchema = z.object({
-  businessAddress: z
-    .string()
-    .min(3, { message: "Address must be at least 3 characters" }),
-  businessCity: z
-    .string()
-    .min(3, { message: "City must be at least 3 characters" }),
-  businessZip: z
-    .string()
-    .min(3, { message: "Postal Code must be at least 3 characters" }),
-  businessCountry: z
-    .string()
-    .min(3, { message: "Country must be at least 3 characters" }),
-  clientName: z
-    .string()
-    .min(3, { message: "Name must be at least 3 characters" }),
-  clientEmail: z.string().email(),
-  clientAddress: z
-    .string()
-    .min(3, { message: "Address must be at least 3 characters" }),
-  clientCity: z.string().min(3),
-  clientZip: z
-    .string()
-    .min(3, { message: "Postal Code must be at least 3 characters" }),
-  clientCountry: z
-    .string()
-    .min(3, { message: "Country must be at least 3 characters" }),
-  invoiceDate: z.date({ required_error: "Invoice date is required" }),
-  paymentTerms: z.string({
-    required_error: "Please select the payment terms.",
-  }),
-  projectName: z
-    .string()
-    .min(3, { message: "Project name must be at least 3 characters" }),
-
-  /* deliverables: z.array(
-    z.object({
-      id: z.string(),
-      deliverable: z
-        .string()
-        .min(3, { message: "Deliverable must be at least 3 characters" }),
-      quantity: z.number(),
-      price: z.number(),
-    })
-  ), */
-});
-
-export interface InvoiceFormProps {
-  onSubmit: (data: z.infer<typeof InvoiceFormSchema>) => void;
+  return addDays(invoiceDate, daysToAdd);
 }
 
 export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
+  const [dueDate, setDueDate] = useState<Date | null>(null);
   const [deliverables, setDeliverables] = useState([
     { id: uuidv4(), deliverable: "", quantity: 0, price: 0 },
   ]);
   const [total, setTotal] = useState(calculateTotal());
+
+  const form = useForm<z.infer<typeof InvoiceFormSchema>>({
+    resolver: zodResolver(InvoiceFormSchema),
+    mode: "onChange",
+    defaultValues: {
+      businessAddress: "",
+      businessCity: "",
+      businessZip: "",
+      businessCountry: "",
+      clientName: "",
+      clientEmail: "",
+      clientAddress: "",
+      clientCity: "",
+      clientZip: "",
+      clientCountry: "",
+      paymentTerms: "",
+      paymentDue: "",
+      status: "",
+      projectName: "",
+      /*       deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
+       */
+    },
+  });
+
+  const invoiceDate = form.watch("invoiceDate");
+  const paymentTerms = form.watch("paymentTerms");
+
+  useEffect(() => {
+    if (invoiceDate && paymentTerms) {
+      const calculatedDueDate = calculateDueDate(
+        new Date(invoiceDate),
+        paymentTerms
+      );
+      setDueDate(calculatedDueDate);
+    }
+  }, [invoiceDate, paymentTerms]);
 
   const {
     data: countries,
@@ -158,27 +142,6 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
     setTotal(calculateTotal());
   }
 
-  const form = useForm<z.infer<typeof InvoiceFormSchema>>({
-    resolver: zodResolver(InvoiceFormSchema),
-    mode: "onChange",
-    defaultValues: {
-      businessAddress: "",
-      businessCity: "",
-      businessZip: "",
-      businessCountry: "",
-      clientName: "",
-      clientEmail: "",
-      clientAddress: "",
-      clientCity: "",
-      clientZip: "",
-      clientCountry: "",
-      paymentTerms: "",
-      projectName: "",
-      /*       deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
-       */
-    },
-  });
-
   const {
     formState: { isValid },
   } = form;
@@ -189,7 +152,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div>
-              <p>Bill From</p>
+              <p className="form-label">Bill From</p>
               <FormField
                 control={form.control}
                 name="businessAddress"
@@ -282,7 +245,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               />
             </div>
             <div>
-              <p>Bill To</p>
+              <p className="form-label">Bill To</p>
               <FormField
                 control={form.control}
                 name="clientName"
@@ -403,6 +366,37 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               />
             </div>
           </div>
+          <FormField
+            control={form.control}
+            name="status"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="form-label">Status</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a status" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {status.map((status) => (
+                      <SelectItem
+                        className="cursor-pointer capitalize"
+                        key={status}
+                        value={status}
+                      >
+                        {status}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div className="grid grid-cols-1 md:grid-cols-2">
             <FormField
               control={form.control}
@@ -472,6 +466,18 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               )}
             />
           </div>
+          <FormField
+            control={form.control}
+            name="paymentDue"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="form-label">Payment Due Date</FormLabel>
+                <FormControl>
+                  <Input value={dueDate ? format(dueDate, "PPP") : ""} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="projectName"

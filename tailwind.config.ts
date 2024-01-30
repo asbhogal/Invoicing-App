@@ -27,6 +27,7 @@ const config = {
     extend: {
       colors: {
         /* PRIMARY */
+        eerieBlack: "#1E1B1A",
         blackOlive: "#3C3633",
         darkPuce: "#4A4542",
         nickel: "#777270",
@@ -42,6 +43,10 @@ const config = {
         darkSilver: "#747264",
         spanishGrey: "#9E9C93",
         paleSilver: "#C7C7C1",
+      },
+      fontFamily: {
+        sans: ["var(--font-sofiaPro)"],
+        serif: ["var(--font-cardillac)"],
       },
       keyframes: {
         "accordion-down": {
