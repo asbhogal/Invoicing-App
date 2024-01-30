@@ -41,10 +41,13 @@ export default function AddInvoice() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-none">Add Invoice</Button>
+        <Button>Add Invoice</Button>
       </DialogTrigger>
       <DialogContent className="max-w-[850px]">
-        <DialogHeader>Add Invoice</DialogHeader>
+        <DialogHeader>
+          <h2>Add Invoice</h2>
+          <div className="border border-dustStorm" />
+        </DialogHeader>
         <InvoiceForm onSubmit={onSubmit} />
       </DialogContent>
     </Dialog>

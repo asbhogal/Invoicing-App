@@ -63,6 +63,8 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
     resolver: zodResolver(InvoiceFormSchema),
     mode: "onChange",
     defaultValues: {
+      businessName: "",
+      businessEmail: "",
       businessAddress: "",
       businessCity: "",
       businessZip: "",
@@ -150,9 +152,39 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
     <ScrollArea className="h-[40.625rem]">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <p className="form-label">Bill From</p>
+              <h3 className="form-label">Bill From</h3>
+              <FormField
+                control={form.control}
+                name="businessName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Business Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Generic Ltd"
+                        className="capitalize"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="businessEmail"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Business Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="generic@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="businessAddress"
@@ -245,7 +277,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               />
             </div>
             <div>
-              <p className="form-label">Bill To</p>
+              <h3 className="form-label">Bill To</h3>
               <FormField
                 control={form.control}
                 name="clientName"
@@ -397,7 +429,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FormField
               control={form.control}
               name="invoiceDate"
@@ -409,7 +441,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                       <FormControl>
                         <Button
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal bg-white hover:bg-white",
+                            "w-[240px] pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -442,7 +474,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
               control={form.control}
               name="paymentTerms"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col">
                   <FormLabel className="form-label">Payment Terms</FormLabel>
                   <Select
                     onValueChange={field.onChange}
@@ -465,19 +497,22 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="paymentDue"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel className="form-label">Payment Due Date</FormLabel>
+                  <FormControl>
+                    <Input
+                      value={dueDate ? format(dueDate, "PPP") : ""}
+                      readOnly
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </div>
-          <FormField
-            control={form.control}
-            name="paymentDue"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Payment Due Date</FormLabel>
-                <FormControl>
-                  <Input value={dueDate ? format(dueDate, "PPP") : ""} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="projectName"
@@ -571,7 +606,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
             + Add New Item
           </Button>
         </div> */}
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-6">
             <Button>Discard</Button>
             <div>
               <Button>Save as Draft</Button>

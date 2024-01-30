@@ -2,6 +2,10 @@ import * as z from "zod";
 import { Schema } from "mongoose";
 
 export const InvoiceFormSchema = z.object({
+  businessName: z
+    .string()
+    .min(3, { message: "Business name must be at least 3 characters" }),
+  businessEmail: z.string().email(),
   businessAddress: z
     .string()
     .min(3, { message: "Address must be at least 3 characters" }),
@@ -51,7 +55,13 @@ export const InvoiceFormSchema = z.object({
 });
 
 export const mongooseInvoiceSchema = new Schema({
+  businessName: { type: String, required: true, minlength: 3 },
   businessAddress: { type: String, required: true, minlength: 3 },
+  businessEmail: {
+    type: String,
+    required: true,
+    match: [/.+\@.+\..+/, "Please enter a valid email address"],
+  },
   businessCity: { type: String, required: true, minlength: 3 },
   businessZip: { type: String, required: true, minlength: 3 },
   businessCountry: { type: String, required: true, minlength: 3 },
