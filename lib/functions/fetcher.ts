@@ -4,7 +4,7 @@ export const fetcher = async (...args: [RequestInfo, RequestInit?]) => {
 };
 
 export async function getInvoices() {
-  const res = await fetch("http://localhost:3000/api/invoices", {
+  const res = await fetch(`${process.env.API_BASE_URL}/api/invoices`, {
     cache: "no-store",
   });
 
