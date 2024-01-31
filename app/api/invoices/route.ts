@@ -1,4 +1,5 @@
 import Invoice from "@/models/Invoice";
+import { MongoNetworkError } from "mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -7,10 +8,17 @@ export async function GET(request: Request) {
     return NextResponse.json({ invoices }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { message: "Error fetching invoices", error },
-      { status: 500 }
-    );
+    if (error instanceof MongoNetworkError) {
+      return NextResponse.json(
+        { message: "Network error occurred while fetching invoices", error },
+        { status: 500 }
+      );
+    } else {
+      return NextResponse.json(
+        { message: "Error fetching invoices", error },
+        { status: 500 }
+      );
+    }
   }
 }
 
