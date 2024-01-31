@@ -1,4 +1,4 @@
-import { mongooseInvoiceSchema } from "@/lib/types/schemas";
+import { mongooseInvoiceSchema } from "@/lib/schemas";
 import mongoose from "mongoose";
 
 if (!process.env.MONGODB_URI) {

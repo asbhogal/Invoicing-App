@@ -35,7 +35,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import useSWR from "swr";
 import { fetcher } from "@/lib/functions/fetcher";
 import { Countries } from "@/types/countries";
-import { InvoiceFormSchema } from "@/lib/types/schemas";
+import { InvoiceFormSchema } from "@/lib/schemas";
 import { netPaymentData, status } from "@/lib/data";
 import { Deliverable } from "@/lib/types/data";
 import { InvoiceFormProps } from "@/lib/types/props";
@@ -94,8 +94,9 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
         paymentTerms
       );
       setDueDate(calculatedDueDate);
+      form.setValue("paymentDue", format(calculatedDueDate, "PPP"));
     }
-  }, [invoiceDate, paymentTerms]);
+  }, [invoiceDate, paymentTerms, form]);
 
   const {
     data: countries,

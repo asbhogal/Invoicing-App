@@ -1,6 +1,6 @@
 import { StatusValue } from "./data";
 import * as z from "zod";
-import { InvoiceFormSchema } from "./schemas";
+import { InvoiceFormSchema } from "../schemas";
 
 export type IconProps = {
   children: React.ReactNode;
