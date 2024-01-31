@@ -46,12 +46,13 @@ export interface Item {
 
 export interface InvoiceData {
   _id: string;
-  createdAt: string;
+  invoiceDate: string;
   paymentDue: string;
   description: string;
   paymentTerms: number;
   clientName: string;
   clientEmail: string;
+  businessName: string;
   status: StatusValue;
   senderAddress: Address;
   clientAddress: Address;

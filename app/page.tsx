@@ -5,6 +5,7 @@ import Link from "next/link";
 import Filter from "@/components/Filter";
 import { getInvoices } from "@/lib/functions/fetcher";
 import { InvoiceData } from "@/lib/types/data";
+import SortBy from "@/components/Sort";
 
 export const metadata: Metadata = {
   title: "Invoicing App",
@@ -16,18 +17,27 @@ export default async function Dashboard() {
   console.log(data);
   const invoices = data?.invoices;
   return (
-    <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[45.625rem] w-full mx-auto">
+    <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[900px] w-full mx-auto">
       <div className="flex justify-between pt-9 sm:pt-16 lg:pt-20">
         <div>
           <h1>Invoices</h1>
-          <p>There are {invoices.length} total invoices</p>
+          <p className="mt-4">Total Invoices: {invoices.length}</p>
         </div>
         <div className="flex items-center gap-10">
+          <SortBy />
           <Filter />
           <AddInvoice />
         </div>
       </div>
       <div className="flex flex-col gap-4">
+        <div className="hidden xs:grid grid-cols-6 uppercase">
+          <p className="font-bold text-[0.9375rem]">Invoice Date</p>
+          <p className="font-bold text-[0.9375rem]">Payment Due</p>
+          <p className="font-bold text-[0.9375rem]">Business Name</p>
+          <p className="font-bold text-[0.9375rem]">Client Name</p>
+          <p className="font-bold text-[0.9375rem]">Total</p>
+          <p className="font-bold text-[0.9375rem]">Status</p>
+        </div>
         {invoices.length === 0 && <p>No invoices</p>}
         {invoices.map((invoice: InvoiceData, index: number) => {
           return (
