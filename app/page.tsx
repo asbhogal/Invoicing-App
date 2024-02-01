@@ -18,12 +18,12 @@ export default async function Dashboard() {
   const invoices = data?.invoices;
   return (
     <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[900px] w-full mx-auto">
-      <div className="flex justify-between pt-9 sm:pt-16 lg:pt-20">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 pt-9 sm:pt-16 lg:pt-20">
         <div>
           <h1>Invoices</h1>
           <p className="mt-4">Total Invoices: {invoices.length}</p>
         </div>
-        <div className="flex items-center gap-10">
+        <div className="flex flex-wrap sm:items-center gap-4">
           <SortBy />
           <Filter />
           <AddInvoice />
