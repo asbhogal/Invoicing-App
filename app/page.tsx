@@ -17,11 +17,13 @@ export default async function Dashboard() {
   console.log(data);
   const invoices = data?.invoices;
   return (
-    <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[900px] w-full mx-auto">
+    <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[1200px] w-full mx-auto">
       <div className="flex flex-col sm:flex-row justify-between gap-4 pt-9 sm:pt-16 lg:pt-20">
         <div>
           <h1>Invoices</h1>
-          <p className="mt-4">Total Invoices: {invoices.length}</p>
+          <p className="mt-4">
+            Total Invoices: <span className="font-bold">{invoices.length}</span>
+          </p>
         </div>
         <div className="flex flex-wrap sm:items-center gap-4">
           <SortBy />
