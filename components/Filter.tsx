@@ -12,7 +12,10 @@ import { status } from "@/lib/data";
 export default function FilterBy() {
   return (
     <Select>
-      <SelectTrigger className="w-[100px]">
+      <SelectTrigger
+        className="w-[100px]"
+        aria-label="open filter by status options"
+      >
         <SelectValue placeholder="Filter By" />
       </SelectTrigger>
       <SelectContent>

@@ -29,7 +29,7 @@ function formatFieldName(field: string): string {
 export default function SortInvoices() {
   return (
     <Select>
-      <SelectTrigger className="w-[150px]">
+      <SelectTrigger className="w-[150px]" aria-label="open sort by fields">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
       <SelectContent>
