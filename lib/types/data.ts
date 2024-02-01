@@ -5,14 +5,6 @@ export type StatusValue =
   | "overdue"
   | "cancelled";
 
-export const statusBgClassMap: Record<StatusValue, string> = {
-  paid: "#EDFFF1",
-  pending: "#FFF9EA",
-  draft: "#f4f4f5",
-  overdue: "#FFC4C4",
-  cancelled: "#dfe3fa",
-};
-
 export const statusTextClassMap: Record<StatusValue, string> = {
   paid: "#0B2E23",
   pending: "#754C00",

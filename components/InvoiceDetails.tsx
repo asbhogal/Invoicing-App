@@ -18,8 +18,12 @@ export default function InvoiceDetails({ invoice }: { invoice: InvoiceData }) {
           <DeleteInvoice />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 items-end gap-4">
         <div className="flex flex-col gap-2">
+          <h2>Bill From</h2>
+          <div className="border border-dustStorm" />
+          <p>{invoice.businessName}</p>
+          <p>{invoice.businessEmail}</p>
           <p>{invoice.businessAddress}</p>
           <p>{invoice.businessCity}</p>
           <p>{invoice.businessZip}</p>
@@ -27,6 +31,7 @@ export default function InvoiceDetails({ invoice }: { invoice: InvoiceData }) {
         </div>
         <div className="flex flex-col gap-2">
           <h2>Bill To</h2>
+          <div className="border border-dustStorm" />
           <p>{invoice.clientName}</p>
           <p>{invoice.clientEmail}</p>
           <p>{invoice.clientAddress}</p>
