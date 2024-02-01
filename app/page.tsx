@@ -30,7 +30,7 @@ export default async function Dashboard() {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="hidden xs:grid grid-cols-6 uppercase">
+        <div className="hidden sm:grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))]  uppercase">
           <p className="font-bold text-[0.9375rem]">Invoice Date</p>
           <p className="font-bold text-[0.9375rem]">Payment Due</p>
           <p className="font-bold text-[0.9375rem]">Business Name</p>

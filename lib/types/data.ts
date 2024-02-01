@@ -53,6 +53,7 @@ export interface InvoiceData {
   clientName: string;
   clientEmail: string;
   businessName: string;
+  businessEmail: string;
   status: StatusValue;
   senderAddress: Address;
   clientAddress: Address;
