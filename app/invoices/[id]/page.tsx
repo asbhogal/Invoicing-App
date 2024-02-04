@@ -1,4 +1,4 @@
-import InvoiceDetails from "@/components/InvoiceDetails";
+import InvoiceDetails from "@/components/invoice/InvoiceDetails";
 import { InvoiceData } from "@/lib/types/data";
 import { Metadata } from "next";
 
