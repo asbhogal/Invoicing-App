@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { InvoiceForm } from "@/components/InvoiceForm";
+import { InvoiceForm } from "@/components/invoice/InvoiceForm";
 
 const meta = {
   title: "Invoicing App/Invoice Form",
