@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/lib/functions/formatCurrency";
-import Status from "./Status";
+import Status from "../Status";
 import { InvoiceData } from "@/lib/types/data";
 import { format } from "date-fns";
 

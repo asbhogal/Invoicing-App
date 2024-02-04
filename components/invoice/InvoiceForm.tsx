@@ -26,19 +26,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Calendar } from "./ui/calendar";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Calendar } from "../ui/calendar";
 import { useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 import useSWR from "swr";
 import { fetcher } from "@/lib/functions/fetcher";
-import { Countries } from "@/types/countries";
 import { InvoiceFormSchema } from "@/lib/schemas";
 import { netPaymentData, status } from "@/lib/data";
 import { Deliverable } from "@/lib/types/data";
 import { InvoiceFormProps } from "@/lib/types/props";
+import { Countries } from "@/lib/types/countries";
 
 function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
   const daysToAdd =
@@ -79,8 +79,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
       paymentDue: "",
       status: "",
       projectName: "",
-      /*       deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
-       */
+      deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
     },
   });
 

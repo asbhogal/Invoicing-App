@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { InvoiceForm } from "./InvoiceForm";
 import { InvoiceFormSchema } from "@/lib/schemas";

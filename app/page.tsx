@@ -1,11 +1,11 @@
-import AddInvoice from "@/components/AddInvoice";
-import InvoiceItem from "@/components/InvoiceItem";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Filter from "@/components/Filter";
 import { getInvoices } from "@/lib/functions/fetcher";
 import { InvoiceData } from "@/lib/types/data";
 import SortBy from "@/components/Sort";
+import AddInvoice from "@/components/invoice/AddInvoice";
+import InvoiceItem from "@/components/invoice/InvoiceItem";
 
 export const metadata: Metadata = {
   title: "Invoicing App",
