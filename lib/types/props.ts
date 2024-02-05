@@ -9,6 +9,8 @@ export type IconProps = {
 
 export interface InvoiceFormProps {
   onSubmit: (data: z.infer<typeof InvoiceFormSchema>) => void;
+  initialValues?: Partial<z.infer<typeof InvoiceFormSchema>>;
+  isEditing: boolean;
 }
 
 export interface StatusProps {

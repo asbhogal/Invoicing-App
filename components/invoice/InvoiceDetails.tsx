@@ -20,7 +20,7 @@ export default function InvoiceDetails({
           <p>{format(invoice.invoiceDate, "PPP")}</p>
         </div>
         <div className="flex flex-wrap sm:items-center gap-4">
-          <EditInvoice />
+          <EditInvoice invoiceId={invoice._id} />
           <DeleteInvoice invoiceId={invoice._id} onDelete={onDelete} />
         </div>
       </div>

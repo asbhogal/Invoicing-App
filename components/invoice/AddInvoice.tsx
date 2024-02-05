@@ -48,7 +48,7 @@ export default function AddInvoice() {
           <h2>Add Invoice</h2>
           <div className="border border-dustStorm" />
         </DialogHeader>
-        <InvoiceForm onSubmit={onSubmit} />
+        <InvoiceForm onSubmit={onSubmit} isEditing={false} />
       </DialogContent>
     </Dialog>
   );

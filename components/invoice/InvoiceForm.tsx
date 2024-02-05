@@ -52,7 +52,11 @@ function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
   return addDays(invoiceDate, daysToAdd);
 }
 
-export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
+export function InvoiceForm({
+  onSubmit,
+  initialValues,
+  isEditing,
+}: InvoiceFormProps) {
   const [dueDate, setDueDate] = useState<Date | null>(null);
   const [deliverables, setDeliverables] = useState([
     { id: uuidv4(), deliverable: "", quantity: 0, price: 0 },
@@ -62,7 +66,7 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
   const form = useForm<z.infer<typeof InvoiceFormSchema>>({
     resolver: zodResolver(InvoiceFormSchema),
     mode: "onChange",
-    defaultValues: {
+    defaultValues: initialValues || {
       businessName: "",
       businessEmail: "",
       businessAddress: "",
@@ -79,7 +83,8 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
       paymentDue: "",
       status: "",
       projectName: "",
-      deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
+      /*       deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
+       */
     },
   });
 
@@ -608,10 +613,10 @@ export function InvoiceForm({ onSubmit }: InvoiceFormProps) {
         </div> */}
           <div className="flex justify-between mt-6">
             <Button>Discard</Button>
-            <div>
-              <Button>Save as Draft</Button>
+            <div className="flex gap-4">
+              {!isEditing && <Button>Save as Draft</Button>}
               <Button type="submit" disabled={!isValid}>
-                Send
+                {isEditing ? "Save" : "Send"}
               </Button>
             </div>
           </div>

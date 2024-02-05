@@ -12,6 +12,16 @@ export async function GET(
   return NextResponse.json(locatedInvoice, { status: 200 });
 }
 
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+
+  const updatedInvoice = await Invoice.findByIdAndUpdate({ _id: id });
+  return NextResponse.json(updatedInvoice, { status: 200 });
+}
+
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
