@@ -5,7 +5,6 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log(params);
   const { id } = params;
 
   const locatedInvoice = await Invoice.findOne({ _id: id });
@@ -17,8 +16,15 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
+  const updateData = await request.json();
+  console.log(`Updating invoice with ID: ${id}`);
+  console.log("Update data:", updateData);
 
-  const updatedInvoice = await Invoice.findByIdAndUpdate({ _id: id });
+  const updatedInvoice = await Invoice.findByIdAndUpdate(id, updateData, {
+    new: true,
+  });
+  console.log("Updated invoice:", updatedInvoice);
+
   return NextResponse.json(updatedInvoice, { status: 200 });
 }
 

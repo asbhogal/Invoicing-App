@@ -27,9 +27,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    console.log("Parsed request body:", body);
     const invoiceData = body;
-    console.log("Invoice data to be saved:", invoiceData);
 
     await Invoice.create(invoiceData);
 

@@ -29,7 +29,7 @@ export default function EditInvoice({ invoiceId }: { invoiceId: string }) {
 
   function onSubmit(data: z.infer<typeof InvoiceFormSchema>) {
     fetch("/api/invoices", {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
