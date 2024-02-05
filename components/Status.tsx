@@ -8,7 +8,7 @@ export default function Status({ status }: StatusProps) {
   return (
     <Badge
       style={{ backgroundColor: "transparent", color: textColor }}
-      className="flex items-center gap-2 uppercase rounded-none font-bold w-fit"
+      className="flex items-center gap-2 uppercase rounded-none font-bold p-0 w-fit"
     >
       <span
         className="h-2 w-2 rounded-full motion-safe:animate-pulse"

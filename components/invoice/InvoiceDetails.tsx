@@ -3,7 +3,13 @@ import EditInvoice from "./EditInvoice";
 import DeleteInvoice from "./DeleteInvoice";
 import { format } from "date-fns";
 
-export default function InvoiceDetails({ invoice }: { invoice: InvoiceData }) {
+export default function InvoiceDetails({
+  invoice,
+  onDelete,
+}: {
+  invoice: InvoiceData;
+  onDelete?: () => void;
+}) {
   return (
     <div className="flex flex-col gap-6 flex-1 sm:min-h-screen max-w-[900px] w-full mx-auto">
       <div className="flex flex-col sm:flex-row justify-between gap-4 pt-9 sm:pt-16 lg:pt-20">
@@ -15,7 +21,7 @@ export default function InvoiceDetails({ invoice }: { invoice: InvoiceData }) {
         </div>
         <div className="flex flex-wrap sm:items-center gap-4">
           <EditInvoice />
-          <DeleteInvoice />
+          <DeleteInvoice invoiceId={invoice._id} onDelete={onDelete} />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 items-end gap-4">
