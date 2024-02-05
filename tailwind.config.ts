@@ -45,7 +45,7 @@ const config = {
         paleSilver: "#C7C7C1",
       },
       fontFamily: {
-        sans: ["var(--font-sofiaPro)"],
+        sans: ["var(--font-geist-sans)"],
         serif: ["var(--font-cardillac)"],
       },
       keyframes: {

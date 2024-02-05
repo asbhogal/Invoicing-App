@@ -26,6 +26,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.0",
+    "geist": "^1.2.2",
     "lucide-react": "^0.312.0",
     "mongodb": "^4.8.1",
     "mongoose": "^8.1.1",

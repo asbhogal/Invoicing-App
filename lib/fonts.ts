@@ -5,9 +5,3 @@ export const cardillac = localFont({
   variable: "--font-cardillac",
   display: "swap",
 });
-
-export const sofiaPro = localFont({
-  src: "../public/fonts/sofiapro_light_macroman/sofiapro-light-webfont.woff2",
-  variable: "--font-sofiaPro",
-  display: "swap",
-});

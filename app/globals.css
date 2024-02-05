@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    @apply bg-whiteChocolate;
-    @apply text-darkPuce;
+    @apply bg-white;
+    @apply text-blackOlive;
   }
   h1 {
     font-size: clamp(1.5rem, 1.3929rem + 0.5357vw, 2.25rem);
@@ -23,7 +23,7 @@
     @apply font-serif;
   }
   h3 {
-    font-size: 0.9375rem;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 700;
     line-height: 1.5rem;
@@ -31,9 +31,9 @@
   }
   p,
   body {
-    font-size: 0.8125rem;
+    font-size: 1rem;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.125rem;
     letter-spacing: -0.00625rem;
     @apply font-sans;

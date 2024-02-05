@@ -3,14 +3,14 @@ import LogOut from "./LogOut";
 
 export default function Navbar() {
   return (
-    <header className="flex flex-row sm:flex-col items-center justify-between w-full my-4 sm:w-[6.44rem] h-[5rem] sm:min-h-screen sm:border-r border-blackOlive">
+    <header className="flex flex-row sm:flex-col items-center justify-between w-full my-4 sm:w-[6.44rem] h-[5rem] sm:min-h-screen">
       <Link href="/" title="Dashboard">
         <span className="sr-only">Dashboard</span>
         <svg
           aria-hidden="true"
           focusable="false"
-          width="50"
-          height="50"
+          width="25"
+          height="25"
           viewBox="0 0 256 256"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
