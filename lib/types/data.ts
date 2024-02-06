@@ -58,7 +58,7 @@ export interface InvoiceData {
   clientCity: string;
   clientZip: string;
   clientCountry: string;
-  invoiceDate: number;
+  invoiceDate: Date;
   paymentTerms: string;
   paymentDue: string;
   projectName: string;

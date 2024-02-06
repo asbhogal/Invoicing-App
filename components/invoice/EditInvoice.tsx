@@ -22,7 +22,7 @@ export default function EditInvoice({ invoiceId }: { invoiceId: string }) {
       .then((response) => response.json())
       .then((data) => {
         data.invoiceDate = new Date(data.invoiceDate);
-        setInvoiceData(data);
+        setInvoiceData(data as InvoiceData);
       })
       .catch((error) => console.error("Error fetching invoice data", error));
   }, [invoiceId]);
