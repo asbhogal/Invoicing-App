@@ -23,7 +23,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
     setFilteredInvoices(filteredInvoices);
   }
   return (
-    <div className="flex flex-col gap-16 flex-1 sm:min-h-screen max-w-[1200px] w-full mx-auto">
+    <div className="flex flex-col gap-16 flex-1 px-2">
       <div className="flex flex-col sm:flex-row justify-between gap-4 pt-9 sm:pt-16 lg:pt-20">
         <div>
           <h1>Invoices</h1>

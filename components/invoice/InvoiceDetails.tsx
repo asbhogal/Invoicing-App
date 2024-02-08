@@ -13,7 +13,7 @@ export default function InvoiceDetails({
   onDelete?: () => void;
 }) {
   return (
-    <div className="flex flex-col gap-6 flex-1 sm:min-h-screen max-w-[900px] w-full mx-auto">
+    <div className="flex flex-col gap-6 flex-1 sm:min-h-screen max-w-[1200px] w-full mx-auto">
       <div className="flex flex-col sm:flex-row justify-between items-end gap-4 pt-9 sm:pt-16 lg:pt-20">
         <div className="flex flex-col gap-2">
           <h1>{invoice.businessName}</h1>

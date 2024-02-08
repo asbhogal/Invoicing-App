@@ -1,3 +1,4 @@
+import Subheading from "@/components/Subheading";
 import InvoiceDetails from "@/components/invoice/InvoiceDetails";
 import { InvoiceData } from "@/lib/types/data";
 import { Metadata } from "next";
@@ -30,7 +31,10 @@ export default async function getInvoiceById({
   }
 
   return invoice ? (
-    <InvoiceDetails invoice={invoice} />
+    <div className="flex flex-col w-full items-center">
+      <Subheading>Invoice Details</Subheading>
+      <InvoiceDetails invoice={invoice} />
+    </div>
   ) : (
     <p>Loading invoice...</p>
   );
