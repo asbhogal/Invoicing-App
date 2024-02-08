@@ -42,7 +42,7 @@ export const InvoiceFormSchema = z.object({
     .string()
     .min(3, { message: "Project name must be at least 3 characters" }),
 
-  /* deliverables: z.array(
+  deliverables: z.array(
     z.object({
       id: z.string(),
       deliverable: z
@@ -51,7 +51,7 @@ export const InvoiceFormSchema = z.object({
       quantity: z.number(),
       price: z.number(),
     })
-  ), */
+  ),
 });
 
 export const mongooseInvoiceSchema = new Schema({
@@ -80,4 +80,12 @@ export const mongooseInvoiceSchema = new Schema({
   status: { type: String, required: true },
   paymentDue: { type: String, required: true },
   projectName: { type: String, required: true, minlength: 3 },
+  deliverables: [
+    {
+      id: { type: String, required: true },
+      deliverable: { type: String, required: true, minlength: 3 },
+      quantity: { type: Number, required: true, min: 1 },
+      price: { type: Number, required: true },
+    },
+  ],
 });

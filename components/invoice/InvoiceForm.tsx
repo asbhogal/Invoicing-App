@@ -29,7 +29,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Calendar } from "../ui/calendar";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ScrollArea } from "../ui/scroll-area";
 import useSWR from "swr";
@@ -39,6 +39,8 @@ import { netPaymentData, status } from "@/lib/data";
 import { Deliverable } from "@/lib/types/data";
 import { InvoiceFormProps } from "@/lib/types/props";
 import { Countries } from "@/lib/types/countries";
+import { formatCurrency } from "@/lib/functions/formatCurrency";
+import Icon from "../Icon";
 
 function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
   const daysToAdd =
@@ -61,6 +63,14 @@ export function InvoiceForm({
   const [deliverables, setDeliverables] = useState([
     { id: uuidv4(), deliverable: "", quantity: 0, price: 0 },
   ]);
+
+  const calculateTotal = useCallback(() => {
+    return deliverables.reduce(
+      (acc, curr) => acc + curr.quantity * curr.price,
+      0
+    );
+  }, [deliverables]);
+
   const [total, setTotal] = useState(calculateTotal());
 
   const form = useForm<z.infer<typeof InvoiceFormSchema>>({
@@ -83,8 +93,7 @@ export function InvoiceForm({
       paymentDue: "",
       status: "",
       projectName: "",
-      /*       deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
-       */
+      deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
     },
   });
 
@@ -102,6 +111,10 @@ export function InvoiceForm({
     }
   }, [invoiceDate, paymentTerms, form]);
 
+  useEffect(() => {
+    setTotal(calculateTotal());
+  }, [calculateTotal]);
+
   const {
     data: countries,
     error,
@@ -113,13 +126,6 @@ export function InvoiceForm({
       a.name.common.localeCompare(b.name.common)
     );
   }, [countries]);
-
-  function calculateTotal() {
-    return deliverables.reduce(
-      (acc, curr) => acc + curr.quantity * curr.price,
-      0
-    );
-  }
 
   function handleAddNewDeliverable() {
     const newDeliverable = {
@@ -141,12 +147,19 @@ export function InvoiceForm({
     field: keyof Deliverable,
     value: string | number
   ) {
+    const parsedValue = typeof value === "number" ? value : parseFloat(value);
     setDeliverables(
       deliverables.map((deliverable) =>
-        deliverable.id === id ? { ...deliverable, [field]: value } : deliverable
+        deliverable.id === id
+          ? { ...deliverable, [field]: parsedValue }
+          : deliverable
       )
     );
     setTotal(calculateTotal());
+    form.setValue(
+      `deliverables.${deliverables.findIndex((d) => d.id === id)}.${field}`,
+      parsedValue
+    );
   }
 
   const {
@@ -531,86 +544,106 @@ export function InvoiceForm({
               </FormItem>
             )}
           />
-          {/* <div>
-          {deliverables.map((deliverable, index) => (
-            <div
-              key={deliverable.id}
-              className="grid grid-cols-1 md:grid-cols-2"
-            >
-              <FormField
-                control={form.control}
-                name={`deliverables.${index}.deliverable`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">Deliverable</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Create business cards" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="grid grid-cols-2">
-                <div className="flex">
-                  <FormField
-                    control={form.control}
-                    name={`deliverables.${index}.quantity`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="form-label">Quantity</FormLabel>
-                        <FormControl>
-                          <Input type="number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`deliverables.${index}.price`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="form-label">Price</FormLabel>
-                        <FormControl>
-                          <Input type="number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <p>{formatCurrency(total)}</p>
-                  <Button
-                    className="p-0 bg-transparent hover:bg-transparent"
-                    onClick={() => handleDeleteDeliverable}
-                  >
-                    <Icon
-                      svgProps={{
-                        width: "13",
-                        height: "16",
-                        viewBox: "0 0 13 16",
-                        fill: "none",
-                        xmlns: "http://www.w3.org/2000/svg",
-                      }}
+          <div>
+            {deliverables.map((deliverable, index) => (
+              <div
+                key={deliverable.id}
+                className="grid grid-cols-1 md:grid-cols-2"
+              >
+                <FormField
+                  control={form.control}
+                  name={`deliverables.${index}.deliverable`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">Deliverable</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Create business cards" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="grid grid-cols-2">
+                  <div className="flex">
+                    <FormField
+                      control={form.control}
+                      name={`deliverables.${index}.quantity`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="form-label">Quantity</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              {...field}
+                              onChange={(e) =>
+                                handleUpdateDeliverable(
+                                  deliverable.id,
+                                  "quantity",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name={`deliverables.${index}.price`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="form-label">Price</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              {...field}
+                              onChange={(e) =>
+                                handleUpdateDeliverable(
+                                  deliverable.id,
+                                  "price",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <p>{formatCurrency(total)}</p>
+                    <Button
+                      className="p-0 bg-transparent hover:bg-transparent"
+                      onClick={() => handleDeleteDeliverable(deliverable.id)}
                     >
-                      <path
-                        id="Combined Shape"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M8.47225 0L9.36117 0.888875H12.4722V2.66667H0.027832V0.888875H3.13892L4.02783 0H8.47225ZM2.6945 16C1.71225 16 0.916707 15.2045 0.916707 14.2222V3.55554H11.5834V14.2222C11.5834 15.2045 10.7878 16 9.80562 16H2.6945Z"
-                        fill="#888EB0"
-                      />
-                    </Icon>
-                  </Button>
+                      <Icon
+                        svgProps={{
+                          width: "13",
+                          height: "16",
+                          viewBox: "0 0 13 16",
+                          fill: "none",
+                          xmlns: "http://www.w3.org/2000/svg",
+                        }}
+                      >
+                        <path
+                          id="Combined Shape"
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M8.47225 0L9.36117 0.888875H12.4722V2.66667H0.027832V0.888875H3.13892L4.02783 0H8.47225ZM2.6945 16C1.71225 16 0.916707 15.2045 0.916707 14.2222V3.55554H11.5834V14.2222C11.5834 15.2045 10.7878 16 9.80562 16H2.6945Z"
+                          fill="#888EB0"
+                        />
+                      </Icon>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-          <Button className="w-full" onClick={handleAddNewDeliverable}>
-            + Add New Item
-          </Button>
-        </div> */}
+            ))}
+            <Button className="w-full" onClick={handleAddNewDeliverable}>
+              + Add New Item
+            </Button>
+          </div>
           <div className="flex justify-between mt-6">
             <Button>Discard</Button>
             <div className="flex gap-4">

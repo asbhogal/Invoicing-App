@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getInvoices } from "@/lib/functions/fetcher";
 import Dashboard from "@/components/Dashboard";
 import Subheading from "@/components/Subheading";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Invoicing App",
@@ -14,6 +15,13 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col w-full">
+      <Image
+        className="hidden sm:block absolute top-[100px]"
+        src="/tools-quill.svg"
+        alt=""
+        width={250}
+        height={250}
+      />
       <Subheading>Dashboard</Subheading>
       <Dashboard invoices={invoices} />
     </div>
