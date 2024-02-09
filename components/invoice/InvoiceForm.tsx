@@ -41,7 +41,6 @@ import { InvoiceFormProps } from "@/lib/types/props";
 import { Countries } from "@/lib/types/countries";
 import { formatCurrency } from "@/lib/functions/formatCurrency";
 import Icon from "../Icon";
-import SaveAsDraft from "../Draft";
 
 function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
   const daysToAdd =
@@ -470,7 +469,7 @@ export function InvoiceForm({
                           <FormControl>
                             <Button
                               className={cn(
-                                "w-[240px] pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive capitalize",
+                                "pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive capitalize w-full",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -674,7 +673,6 @@ export function InvoiceForm({
               <div className="flex justify-between">
                 <Button>Discard</Button>
                 <div className="flex gap-4">
-                  {!isEditing && <SaveAsDraft />}
                   <Button type="submit" disabled={!isValid}>
                     {isEditing ? "Save" : "Send"}
                   </Button>

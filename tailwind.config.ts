@@ -46,7 +46,6 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
-        serif: ["var(--font-cardillac)"],
       },
       keyframes: {
         "accordion-down": {
