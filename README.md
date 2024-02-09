@@ -11,10 +11,12 @@ A CRUD app which allows the user to create, review and update invoices, filter a
  - MongoDB to store invoice data back-end
  - Mongoose to define document schema-based validation
  - SWR to dynamically fetch and list countries for form
+ - Auto-complete payment due date from invoice date and payment terms
  - API routes to fetch invoices
  - React Hook Form and Zod schemas for robust form capture and validation
  - Shadcn UI components for ARIA-compliant and unopinionated interactivity and styling
- - Storybook to test UI components in isolation
+ - Redesigned UI with a modern, neutral-palette light and dark mode theme
+ - Storybook to test components in isolation
  - Playwright for E2E and a11y testing
 
 <strong>Stacks & Tools</strong>

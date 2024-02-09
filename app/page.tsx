@@ -21,6 +21,7 @@ export default async function Page() {
         alt=""
         width={250}
         height={250}
+        priority
       />
       <Subheading>Dashboard</Subheading>
       <Dashboard invoices={invoices} />
