@@ -41,6 +41,7 @@ import { InvoiceFormProps } from "@/lib/types/props";
 import { Countries } from "@/lib/types/countries";
 import { formatCurrency } from "@/lib/functions/formatCurrency";
 import Icon from "../Icon";
+import SaveAsDraft from "../Draft";
 
 function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
   const daysToAdd =
@@ -170,80 +171,22 @@ export function InvoiceForm({
     <ScrollArea className="h-[40.625rem]">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <h3 className="form-label">Bill From</h3>
-              <FormField
-                control={form.control}
-                name="businessName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">Business Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Generic Ltd"
-                        className="capitalize"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="businessEmail"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">Business Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="generic@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="businessAddress"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">Street Address</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="19 Union Terrace"
-                        className="capitalize"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-4">
+                <h3 className="form-label">Bill From</h3>
                 <FormField
                   control={form.control}
-                  name="businessCity"
+                  name="businessName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="form-label">City</FormLabel>
-                      <FormControl>
-                        <Input placeholder="London" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="businessZip"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="form-label">Post Code</FormLabel>
+                      <FormLabel className="form-label">
+                        Business Name
+                      </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="E1 3EZ"
-                          className="uppercase"
+                          placeholder="Generic Ltd"
+                          className="capitalize"
                           {...field}
                         />
                       </FormControl>
@@ -251,33 +194,221 @@ export function InvoiceForm({
                     </FormItem>
                   )}
                 />
-              </div>
-              <FormField
-                control={form.control}
-                name="businessCountry"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">Country</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                <FormField
+                  control={form.control}
+                  name="businessEmail"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">
+                        Business Email
+                      </FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a country" />
-                        </SelectTrigger>
+                        <Input placeholder="generic@example.com" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        {error ? (
-                          <p>Error getting countries</p>
-                        ) : !countries ? (
-                          <p>Loading countries...</p>
-                        ) : (
-                          countries
-                            .sort((a, b) =>
-                              a.name.common.localeCompare(b.name.common)
-                            )
-                            .map((country) => (
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="businessAddress"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">
+                        Street Address
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="19 Union Terrace"
+                          className="capitalize"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="businessCity"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="form-label">City</FormLabel>
+                        <FormControl>
+                          <Input placeholder="London" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="businessZip"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="form-label">Post Code</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="E1 3EZ"
+                            className="uppercase"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="businessCountry"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">Country</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a country" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {error ? (
+                            <p>Error getting countries</p>
+                          ) : !countries ? (
+                            <p>Loading countries...</p>
+                          ) : (
+                            countries
+                              .sort((a, b) =>
+                                a.name.common.localeCompare(b.name.common)
+                              )
+                              .map((country) => (
+                                <SelectItem
+                                  className="cursor-pointer"
+                                  key={country.cca3}
+                                  value={country.name.common}
+                                >
+                                  {country.name.common}
+                                </SelectItem>
+                              ))
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col gap-4">
+                <h3 className="form-label">Bill To</h3>
+                <FormField
+                  control={form.control}
+                  name="clientName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">
+                        Client&apos;s Name
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Alex Grim"
+                          className="capitalize"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="clientEmail"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">
+                        Client&apos;s Email
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="alexgrim@example.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="clientAddress"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">
+                        Client&apos;s Address
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="19 Union Terrace" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="clientCity"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="form-label">City</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Bath" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="clientZip"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="form-label">
+                          Postal Code
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="BT23 16D"
+                            className="uppercase"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="clientCountry"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">Country</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a country" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {error ? (
+                            <p>Error getting countries</p>
+                          ) : !sortedCountries ? (
+                            <p>Loading countries...</p>
+                          ) : (
+                            sortedCountries.map((country) => (
                               <SelectItem
                                 className="cursor-pointer"
                                 key={country.cca3}
@@ -286,371 +417,269 @@ export function InvoiceForm({
                                 {country.name.common}
                               </SelectItem>
                             ))
-                        )}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div>
-              <h3 className="form-label">Bill To</h3>
-              <FormField
-                control={form.control}
-                name="clientName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">
-                      Client&apos;s Name
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Alex Grim"
-                        className="capitalize"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="clientEmail"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">
-                      Client&apos;s Email
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="alexgrim@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="clientAddress"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="form-label">
-                      Client&apos;s Address
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="19 Union Terrace" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="clientCity"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="form-label">City</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Bath" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="clientZip"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="form-label">Postal Code</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="BT23 16D"
-                          className="uppercase"
-                          {...field}
-                        />
-                      </FormControl>
+                          )}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
+            </div>
+            <div className="flex flex-col gap-4">
               <FormField
                 control={form.control}
-                name="clientCountry"
+                name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="form-label">Country</FormLabel>
+                    <FormLabel className="form-label">Status</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a country" />
+                          <SelectValue placeholder="Select a status" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {error ? (
-                          <p>Error getting countries</p>
-                        ) : !sortedCountries ? (
-                          <p>Loading countries...</p>
-                        ) : (
-                          sortedCountries.map((country) => (
-                            <SelectItem
-                              className="cursor-pointer"
-                              key={country.cca3}
-                              value={country.name.common}
-                            >
-                              {country.name.common}
-                            </SelectItem>
-                          ))
-                        )}
+                        {status.map((status) => (
+                          <SelectItem
+                            className="cursor-pointer capitalize"
+                            key={status}
+                            value={status}
+                          >
+                            {status}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            </div>
-          </div>
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Status</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a status" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {status.map((status) => (
-                      <SelectItem
-                        className="cursor-pointer capitalize"
-                        key={status}
-                        value={status}
-                      >
-                        {status}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FormField
-              control={form.control}
-              name="invoiceDate"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel className="form-label">Invoice Date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          className={cn(
-                            "w-[240px] pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="paymentTerms"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel className="form-label">Payment Terms</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a payment term" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {netPaymentData.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {`Net ${option}`}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="paymentDue"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel className="form-label">Payment Due Date</FormLabel>
-                  <FormControl>
-                    <Input
-                      value={dueDate ? format(dueDate, "PPP") : ""}
-                      readOnly
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </div>
-          <FormField
-            control={form.control}
-            name="projectName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="form-label">Project Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Create business cards" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div>
-            {deliverables.map((deliverable, index) => (
-              <div
-                key={deliverable.id}
-                className="grid grid-cols-1 md:grid-cols-2"
-              >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <FormField
                   control={form.control}
-                  name={`deliverables.${index}.deliverable`}
+                  name="invoiceDate"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="form-label">Deliverable</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Create business cards" {...field} />
-                      </FormControl>
+                    <FormItem className="flex flex-col">
+                      <FormLabel className="form-label">Invoice Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              className={cn(
+                                "w-[240px] pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive capitalize",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) =>
+                              date > new Date() || date < new Date("1900-01-01")
+                            }
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <div className="grid grid-cols-2">
-                  <div className="flex">
-                    <FormField
-                      control={form.control}
-                      name={`deliverables.${index}.quantity`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="form-label">Quantity</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              {...field}
-                              onChange={(e) =>
-                                handleUpdateDeliverable(
-                                  deliverable.id,
-                                  "quantity",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name={`deliverables.${index}.price`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="form-label">Price</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              {...field}
-                              onChange={(e) =>
-                                handleUpdateDeliverable(
-                                  deliverable.id,
-                                  "price",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <p>{formatCurrency(total)}</p>
-                    <Button
-                      className="p-0 bg-transparent hover:bg-transparent"
-                      onClick={() => handleDeleteDeliverable(deliverable.id)}
-                    >
-                      <Icon
-                        svgProps={{
-                          width: "13",
-                          height: "16",
-                          viewBox: "0 0 13 16",
-                          fill: "none",
-                          xmlns: "http://www.w3.org/2000/svg",
-                        }}
+                <FormField
+                  control={form.control}
+                  name="paymentTerms"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel className="form-label">
+                        Payment Terms
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
                       >
-                        <path
-                          id="Combined Shape"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M8.47225 0L9.36117 0.888875H12.4722V2.66667H0.027832V0.888875H3.13892L4.02783 0H8.47225ZM2.6945 16C1.71225 16 0.916707 15.2045 0.916707 14.2222V3.55554H11.5834V14.2222C11.5834 15.2045 10.7878 16 9.80562 16H2.6945Z"
-                          fill="#888EB0"
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a payment term" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {netPaymentData.map((option) => (
+                            <SelectItem key={option} value={option}>
+                              {`Net ${option}`}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="paymentDue"
+                  render={() => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel className="form-label">
+                        Payment Due Date
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="pointer-events-none bg-antiFlashWhite"
+                          value={dueDate ? format(dueDate, "PPP") : ""}
+                          readOnly
                         />
-                      </Icon>
-                    </Button>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                control={form.control}
+                name="projectName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label">Project Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Create business cards" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex flex-col gap-4">
+                {deliverables.map((deliverable, index) => (
+                  <div
+                    key={deliverable.id}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                  >
+                    <FormField
+                      control={form.control}
+                      name={`deliverables.${index}.deliverable`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="form-label">
+                            Deliverable
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Create business cards"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex gap-4">
+                        <FormField
+                          control={form.control}
+                          name={`deliverables.${index}.quantity`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="form-label">
+                                Quantity
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  {...field}
+                                  onChange={(e) =>
+                                    handleUpdateDeliverable(
+                                      deliverable.id,
+                                      "quantity",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`deliverables.${index}.price`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="form-label">
+                                Price
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  {...field}
+                                  onChange={(e) =>
+                                    handleUpdateDeliverable(
+                                      deliverable.id,
+                                      "price",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 items-center">
+                        <p>{formatCurrency(total)}</p>
+                        <Button
+                          className="p-0 bg-transparent hover:bg-transparent"
+                          onClick={() =>
+                            handleDeleteDeliverable(deliverable.id)
+                          }
+                        >
+                          <Icon
+                            svgProps={{
+                              width: "13",
+                              height: "16",
+                              viewBox: "0 0 13 16",
+                              fill: "none",
+                              xmlns: "http://www.w3.org/2000/svg",
+                            }}
+                          >
+                            <path
+                              id="Combined Shape"
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M8.47225 0L9.36117 0.888875H12.4722V2.66667H0.027832V0.888875H3.13892L4.02783 0H8.47225ZM2.6945 16C1.71225 16 0.916707 15.2045 0.916707 14.2222V3.55554H11.5834V14.2222C11.5834 15.2045 10.7878 16 9.80562 16H2.6945Z"
+                              fill="#888EB0"
+                            />
+                          </Icon>
+                        </Button>
+                      </div>
+                    </div>
                   </div>
+                ))}
+                <Button className="w-full" onClick={handleAddNewDeliverable}>
+                  + Add New Item
+                </Button>
+              </div>
+              <div className="flex justify-between">
+                <Button>Discard</Button>
+                <div className="flex gap-4">
+                  {!isEditing && <SaveAsDraft />}
+                  <Button type="submit" disabled={!isValid}>
+                    {isEditing ? "Save" : "Send"}
+                  </Button>
                 </div>
               </div>
-            ))}
-            <Button className="w-full" onClick={handleAddNewDeliverable}>
-              + Add New Item
-            </Button>
-          </div>
-          <div className="flex justify-between mt-6">
-            <Button>Discard</Button>
-            <div className="flex gap-4">
-              {!isEditing && <Button>Save as Draft</Button>}
-              <Button type="submit" disabled={!isValid}>
-                {isEditing ? "Save" : "Send"}
-              </Button>
             </div>
           </div>
         </form>

@@ -20,6 +20,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    text-transform: uppercase;
     @apply font-serif;
   }
   h3 {

@@ -4,6 +4,7 @@ import DeleteInvoice from "./DeleteInvoice";
 import { format } from "date-fns";
 import Status from "../Status";
 import Separator from "../Separator";
+import MarkAsPaid from "../Paid";
 
 export default function InvoiceDetails({
   invoice,
@@ -23,6 +24,7 @@ export default function InvoiceDetails({
           <Status status={invoice.status} />
         </div>
         <div className="flex flex-wrap sm:items-center gap-4">
+          {invoice.status !== "paid" && <MarkAsPaid />}
           <EditInvoice invoiceId={invoice._id} />
           <DeleteInvoice invoiceId={invoice._id} onDelete={onDelete} />
         </div>
