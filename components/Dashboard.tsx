@@ -45,7 +45,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
     setFilteredInvoices(filteredInvoices);
   }
   return (
-    <div className="flex flex-col gap-16 flex-1 px-2">
+    <div className="flex flex-col gap-4 flex-1 px-2">
       <div className="flex flex-col sm:flex-row justify-between gap-4 pt-9 sm:pt-16 lg:pt-20">
         <div>
           <h1 className="sr-only">Invoices</h1>
@@ -163,8 +163,8 @@ export default function Dashboard({ invoices }: DashboardProps) {
           ]}
             xScale={{ type: 'point' }}
             margin={{
-              top: 50,
-              right: 60,
+              top: 20,
+              right: 20,
               bottom: 50,
               left: 60
             }}
@@ -335,8 +335,8 @@ export default function Dashboard({ invoices }: DashboardProps) {
           ]}
             xScale={{ type: 'point' }}
             margin={{
-              top: 50,
-              right: 60,
+              top: 20,
+              right: 20,
               bottom: 50,
               left: 60
             }}
