@@ -3,7 +3,7 @@ import LogOut from "./LogOut";
 
 export default function Navbar() {
   return (
-    <header className="flex items-center justify-between w-full p-2">
+    <header className="flex items-center justify-between p-2">
       <Link href="/" title="Dashboard">
         <span className="sr-only">Dashboard</span>
         <svg

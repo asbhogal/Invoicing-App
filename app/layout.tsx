@@ -11,9 +11,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cardillac.variable} ${GeistSans.variable}`}>
-      <body className="flex flex-col max-w-[1200px] w-full mx-auto pb-12">
+      <body className="flex max-w-[1720px] w-full mx-auto pb-12">
         <Navbar />
-        <main className="flex flex-1">{children}</main>
+        <main className="flex w-full">{children}</main>
         <Toaster />
       </body>
     </html>
