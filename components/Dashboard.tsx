@@ -61,7 +61,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
           <AddInvoice />
         </div> */}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:h-64">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:h-64">
         <div className="border border-antiFlashWhite rounded-md p-4">
           <ResponsiveLine data={[
             {
