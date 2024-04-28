@@ -12,7 +12,7 @@ export default async function Page() {
   const data = await getInvoices();
   const invoices = data?.invoices;
 
-  console.log(invoices)
+  console.log(invoices);
 
   return (
     <div className="flex flex-col w-full ml-[68px]">

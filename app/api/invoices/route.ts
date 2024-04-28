@@ -11,12 +11,12 @@ export async function GET(request: Request) {
     if (error instanceof MongoNetworkError) {
       return NextResponse.json(
         { message: "Network error occurred while fetching invoices", error },
-        { status: 500 }
+        { status: 500 },
       );
     } else {
       return NextResponse.json(
         { message: "Error fetching invoices", error },
-        { status: 500 }
+        { status: 500 },
       );
     }
   }
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     console.error(error);
     return NextResponse.json(
       { message: "Error creating invoice", error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

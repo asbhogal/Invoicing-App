@@ -45,25 +45,12 @@ export interface Item {
 }
 
 export interface InvoiceData {
-  _id: string;
-  businessName: string;
-  businessEmail: string;
-  businessAddress: string;
-  businessCity: string;
-  businessZip: string;
-  businessCountry: string;
-  clientName: string;
-  clientEmail: string;
-  clientAddress: string;
-  clientCity: string;
-  clientZip: string;
-  clientCountry: string;
-  invoiceDate: Date;
-  paymentTerms: string;
+  id: string;
+  product: string;
+  units: number;
+  supplier: string;
+  billed: string;
+  dateInvoiced: string;
   paymentDue: string;
-  projectName: string;
   status: StatusValue;
-  description: string;
-  items: Item[];
-  total: number;
 }

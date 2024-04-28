@@ -23,11 +23,10 @@
  */
 
 @font-face {
-    font-family: 'cardillac-lig';
-    src: url('cardillac-lig-webfont.woff2') format('woff2'),
-         url('cardillac-lig-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "cardillac-lig";
+  src:
+    url("cardillac-lig-webfont.woff2") format("woff2"),
+    url("cardillac-lig-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
-

@@ -23,11 +23,10 @@
  */
 
 @font-face {
-    font-family: 'sofiapro-light';
-    src: url('sofiapro-light-webfont.woff2') format('woff2'),
-         url('sofiapro-light-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "sofiapro-light";
+  src:
+    url("sofiapro-light-webfont.woff2") format("woff2"),
+    url("sofiapro-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
-

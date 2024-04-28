@@ -67,7 +67,7 @@ export function InvoiceForm({
   const calculateTotal = useCallback(() => {
     return deliverables.reduce(
       (acc, curr) => acc + curr.quantity * curr.price,
-      0
+      0,
     );
   }, [deliverables]);
 
@@ -104,7 +104,7 @@ export function InvoiceForm({
     if (invoiceDate && paymentTerms) {
       const calculatedDueDate = calculateDueDate(
         new Date(invoiceDate),
-        paymentTerms
+        paymentTerms,
       );
       setDueDate(calculatedDueDate);
       form.setValue("paymentDue", format(calculatedDueDate, "PPP"));
@@ -123,7 +123,7 @@ export function InvoiceForm({
 
   const sortedCountries = useMemo(() => {
     return countries?.sort((a, b) =>
-      a.name.common.localeCompare(b.name.common)
+      a.name.common.localeCompare(b.name.common),
     );
   }, [countries]);
 
@@ -145,20 +145,20 @@ export function InvoiceForm({
   function handleUpdateDeliverable(
     id: string,
     field: keyof Deliverable,
-    value: string | number
+    value: string | number,
   ) {
     const parsedValue = typeof value === "number" ? value : parseFloat(value);
     setDeliverables(
       deliverables.map((deliverable) =>
         deliverable.id === id
           ? { ...deliverable, [field]: parsedValue }
-          : deliverable
-      )
+          : deliverable,
+      ),
     );
     setTotal(calculateTotal());
     form.setValue(
       `deliverables.${deliverables.findIndex((d) => d.id === id)}.${field}`,
-      parsedValue
+      parsedValue,
     );
   }
 
@@ -282,7 +282,7 @@ export function InvoiceForm({
                           ) : (
                             countries
                               .sort((a, b) =>
-                                a.name.common.localeCompare(b.name.common)
+                                a.name.common.localeCompare(b.name.common),
                               )
                               .map((country) => (
                                 <SelectItem
@@ -470,7 +470,7 @@ export function InvoiceForm({
                             <Button
                               className={cn(
                                 "pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive capitalize w-full",
-                                !field.value && "text-muted-foreground"
+                                !field.value && "text-muted-foreground",
                               )}
                             >
                               {field.value ? (
@@ -601,7 +601,7 @@ export function InvoiceForm({
                                     handleUpdateDeliverable(
                                       deliverable.id,
                                       "quantity",
-                                      e.target.value
+                                      e.target.value,
                                     )
                                   }
                                 />
@@ -626,7 +626,7 @@ export function InvoiceForm({
                                     handleUpdateDeliverable(
                                       deliverable.id,
                                       "price",
-                                      e.target.value
+                                      e.target.value,
                                     )
                                   }
                                 />

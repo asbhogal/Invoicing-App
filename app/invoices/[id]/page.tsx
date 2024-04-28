@@ -18,7 +18,7 @@ export default async function getInvoiceById({
       `${process.env.API_BASE_URL}/api/invoices/${params.id}`,
       {
         cache: "no-store",
-      }
+      },
     );
 
     if (!res.ok) {
