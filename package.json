@@ -16,6 +16,7 @@
   "dependencies": {
     "@axe-core/playwright": "^4.8.3",
     "@hookform/resolvers": "^3.3.4",
+    "@nivo/bar": "^0.85.1",
     "@nivo/core": "^0.85.1",
     "@nivo/line": "^0.85.1",
     "@nivo/pie": "^0.85.1",
