@@ -10,34 +10,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
+import { LogOutIcon } from "lucide-react";
 
 export default function LogOut() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          className="log-out bg-transparent hover:bg-transparent"
+          className="flex items-center justify-between gap-4 w-full p-4 hover:bg-gray-900 transition rounded-md"
           title="Log Out"
-          aria-labelledby="button-label"
         >
-          <span id="button-label" className="sr-only">
-            Log Out
-          </span>
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            width="20"
-            height="20"
-            viewBox="0 0 256 256"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M138.667 95.9999V21.3333H10.6667V234.667H138.667V160M234.667 128H53.3334M234.667 128L181.333 74.6666M234.667 128L181.333 181.333"
-              stroke="#3C3633"
-              stroke-width="21.3333"
-            />
-          </svg>
+          <LogOutIcon />
+          Log Out
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

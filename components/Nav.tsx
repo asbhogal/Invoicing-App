@@ -1,26 +1,62 @@
 import Link from "next/link";
 import LogOut from "./LogOut";
+import {
+  BadgePoundSterling,
+  LayoutDashboard,
+  MessagesSquare,
+  Truck,
+} from "lucide-react";
+
+type NavBarType = {
+  id: number;
+  title: string;
+  path: string;
+  icon: React.ReactNode;
+};
+
+const navBar: NavBarType[] = [
+  {
+    id: 1,
+    title: "Dashboard",
+    path: "/",
+    icon: <LayoutDashboard />,
+  },
+  {
+    id: 2,
+    title: "Invoices",
+    path: "/profile",
+    icon: <BadgePoundSterling />,
+  },
+  {
+    id: 3,
+    title: "Suppliers",
+    path: "/settings",
+    icon: <Truck />,
+  },
+  {
+    id: 4,
+    title: "Messages",
+    path: "/messages",
+    icon: <MessagesSquare />,
+  },
+];
 
 export default function Navbar() {
   return (
-    <header className="flex flex-col items-center justify-between px-2 py-6 h-dvh fixed">
-      <Link href="/" title="Dashboard">
-        <span className="sr-only">Dashboard</span>
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          width="25"
-          height="25"
-          viewBox="0 0 256 256"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M235.35 10L184.1 24.905L204.85 10.86C191.75 13.82 175.2 19.61 154.4 28.955L120.45 64.35L132.5 39.625C120.85 46.105 108.5 54.6 96.6001 64.55L88.7001 96.7L87.0001 72.9C75.2501 83.7 64.2001 95.7 55.0501 108.35C45.4351 121.6 37.9201 135.6 34.1551 149.55L20.0951 140.15C21.3551 152 25.2501 162.3 31.6401 171.75L14.8301 166.6C18.6501 178.35 24.8951 185.95 35.4551 192.1C29.5401 208.75 26.7651 226.15 23.7851 243.5L32.9851 245.05C43.6551 138.7 118.95 70.9 187 40.86L190.45 49.55C129.6 76.8 82.3001 122.8 57.5501 189.1C66.6001 189.15 75.4501 188.05 83.6501 185.95L86.1001 155.5L92.6501 183.25C98.1001 181.25 103.1 178.85 107.55 176.05L97.2001 154.3L113.6 171.7C117.6 168.5 120.9 164.9 123.4 160.95C138.6 137.2 154.5 113.6 185.8 93.85L162.95 85.75L198 86.8C203.7 83.9 209.7 80.35 214.25 77L189.4 75L226.75 66.2C229.65 63.3 232.35 60.25 234.8 57.2C243.45 46.23 249.3 34.81 247.9 24.425C247.25 19.23 244.15 14.345 239.1 11.61C237.85 10.96 236.5 10.385 235.35 10Z"
-            fill="#3C3633"
-          />
-        </svg>
-      </Link>
+    <header className="flex flex-col items-center justify-between px-2 py-6 m-4 h-dvh fixed w-36">
+      <nav className="flex flex-col items-center justify-center">
+        {navBar.map((item) => (
+          <Link
+            className="flex items-center justify-between gap-4 w-full p-4 hover:bg-gray-900 transition rounded-md"
+            key={item.id}
+            href={item.path}
+            title={item.title}
+          >
+            <span>{item.icon}</span>
+            {item.title}
+          </Link>
+        ))}
+      </nav>
       <LogOut />
     </header>
   );

@@ -15,7 +15,7 @@ export default async function Page() {
   console.log(invoices);
 
   return (
-    <div className="flex flex-col w-full ml-[68px]">
+    <div className="flex flex-col w-full">
       <Dashboard invoices={invoices} />
     </div>
   );
