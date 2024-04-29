@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card";
 import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
+import { Badge } from "./ui/badge";
 
 export default function Dashboard({ invoices }: DashboardProps) {
   console.log(invoices);
@@ -28,6 +29,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
     title: string;
     desc: string;
     trend: "up" | "down";
+    change: number;
     content: string;
   };
 
@@ -37,6 +39,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
       title: "Revenue for Q1",
       desc: "Revenue for Q1",
       trend: "up",
+      change: 283,
       content: "Revenue for Q1",
     },
     {
@@ -44,6 +47,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
       title: "Revenue for Q1",
       desc: "Revenue for Q1",
       trend: "down",
+      change: -94,
       content: "Revenue for Q1",
     },
     {
@@ -51,6 +55,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
       title: "Revenue for Q1",
       desc: "Revenue for Q1",
       trend: "down",
+      change: -4,
       content: "Revenue for Q1",
     },
     {
@@ -58,6 +63,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
       title: "Revenue for Q1",
       desc: "Revenue for Q1",
       trend: "up",
+      change: 504,
       content: "Revenue for Q1",
     },
     {
@@ -65,6 +71,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
       title: "Revenue for Q1",
       desc: "Revenue for Q1",
       trend: "down",
+      change: -77,
       content: "Revenue for Q1",
     },
   ];
@@ -83,12 +90,20 @@ export default function Dashboard({ invoices }: DashboardProps) {
                     <CardDescription>{card.desc}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    {card.trend === "up" ? (
-                      <TrendingUpIcon color="green" />
-                    ) : (
-                      <TrendingDownIcon color="red" />
-                    )}
-                    <p>{card.content}</p>
+                    <div className="flex items-center justify-between w-full">
+                      {card.trend === "up" ? (
+                        <TrendingUpIcon color="green" />
+                      ) : (
+                        <TrendingDownIcon color="red" />
+                      )}
+                      {card.change < 0 ? (
+                        <Badge className="bg-red-600 text-black">
+                          {card.change}%
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-green-900">+{card.change}%</Badge>
+                      )}
+                    </div>
                   </CardContent>
                 </Card>
               ))}

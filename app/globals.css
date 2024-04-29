@@ -13,6 +13,8 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    border-bottom: 1px solid #cccccc;
+    @apply mb-4;
     @apply font-sans;
   }
 
