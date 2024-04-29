@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { formatDate } from "@/lib/functions/formatDate";
 
 export const columns: ColumnDef<InvoiceData>[] = [
@@ -26,7 +26,17 @@ export const columns: ColumnDef<InvoiceData>[] = [
   },
   {
     accessorKey: "supplier",
-    header: "Supplier",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0 bg-transparent hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Supplier
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "billed",
