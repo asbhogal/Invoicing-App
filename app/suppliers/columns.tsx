@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { formatDate } from "@/lib/functions/formatDate";
+import { OrderType } from "@/lib/types/orders";
 
-export const columns: ColumnDef<InvoiceData>[] = [
+export const columns: ColumnDef<OrderType>[] = [
   {
     accessorKey: "product",
     header: "Product",
@@ -63,7 +64,7 @@ export const columns: ColumnDef<InvoiceData>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: (cell: CellContext<InvoiceData, unknown>) => {
+    cell: (cell: CellContext<OrderType, unknown>) => {
       const status = cell.row.original.status as StatusValue;
       return <Status status={status} />;
     },
@@ -85,7 +86,9 @@ export const columns: ColumnDef<InvoiceData>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => navigator.clipboard.writeText(suppliers.id)}
+              onClick={() =>
+                navigator.clipboard.writeText(suppliers._id.toString())
+              }
             >
               Copy Invoice ID
             </DropdownMenuItem>

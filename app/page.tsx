@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getInvoices } from "@/lib/functions/fetcher";
 import Dashboard from "@/components/Dashboard";
-import Subheading from "@/components/Subheading";
 
 export const metadata: Metadata = {
   title: "Invoicing App",

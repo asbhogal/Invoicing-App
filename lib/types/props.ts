@@ -3,7 +3,7 @@ import * as z from "zod";
 import { InvoiceFormSchema } from "../schemas";
 
 export interface DashboardProps {
-  invoices: InvoiceData[];
+  invoices?: InvoiceData[];
 }
 
 export interface FilterProps {

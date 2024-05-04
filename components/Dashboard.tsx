@@ -8,7 +8,7 @@ import { columns } from "@/app/suppliers/columns";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
-import sampleData from "@/lib/data.json";
+import { ordersData } from "@/lib/data/orders";
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ import {
 import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { Badge } from "./ui/badge";
+import { OrderType } from "@/lib/types/orders";
 
 export default function Dashboard({ invoices }: DashboardProps) {
   console.log(invoices);
@@ -949,9 +950,9 @@ export default function Dashboard({ invoices }: DashboardProps) {
             />
           </div>
         </div>
-        <DataTable<InvoiceData, unknown>
+        <DataTable<OrderType, unknown>
           columns={columns}
-          data={sampleData as InvoiceData[]}
+          data={ordersData as OrderType[]}
         />
       </div>
     </ScrollArea>
