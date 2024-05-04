@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export type OrderType = {
-  _id: ObjectId;
+  _id: number;
   product: string;
   units: number;
   supplier: string;

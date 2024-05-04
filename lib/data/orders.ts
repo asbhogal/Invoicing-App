@@ -3,7 +3,7 @@ import { OrderType } from "../types/orders";
 
 export const ordersData: OrderType[] = [
   {
-    _id: new ObjectId(),
+    _id: 1,
     product: "Glenalnarch Legacy 70cl",
     units: 500,
     supplier: "Oak & Grain Ltd",
@@ -13,7 +13,7 @@ export const ordersData: OrderType[] = [
     status: "paid",
   },
   {
-    _id: new ObjectId(),
+    _id: 2,
     product: "Glenalnarch Destiny 1L TD",
     units: 750,
     supplier: "Scotch Unveiled",
@@ -23,7 +23,7 @@ export const ordersData: OrderType[] = [
     status: "pending",
   },
   {
-    _id: new ObjectId(),
+    _id: 3,
     product: "Glenalnarch 15Y 70cl",
     units: 900,
     supplier: "Scotch Unveiled",
@@ -33,7 +33,7 @@ export const ordersData: OrderType[] = [
     status: "overdue",
   },
   {
-    _id: new ObjectId(),
+    _id: 4,
     product: "Glenalnarch 18Y 70cl",
     units: 1200,
     supplier: "Whiskey Whispers",
@@ -43,7 +43,7 @@ export const ordersData: OrderType[] = [
     status: "overdue",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 25Y 70cl",
     units: 1520,
     supplier: "Oak & Grain Ltd",
@@ -53,7 +53,7 @@ export const ordersData: OrderType[] = [
     status: "paid",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 21Y 70cl",
     units: 3500,
     supplier: "Whisky Wonders",
@@ -63,7 +63,7 @@ export const ordersData: OrderType[] = [
     status: "paid",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch Destiny 1L TD",
     units: 750,
     supplier: "Scotch Unveiled",
@@ -73,7 +73,7 @@ export const ordersData: OrderType[] = [
     status: "pending",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 15Y 70cl",
     units: 900,
     supplier: "Scotch Unveiled",
@@ -83,7 +83,7 @@ export const ordersData: OrderType[] = [
     status: "overdue",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 18Y 70cl",
     units: 1200,
     supplier: "Whiskey Whispers",
@@ -93,7 +93,7 @@ export const ordersData: OrderType[] = [
     status: "overdue",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 25Y 70cl",
     units: 1520,
     supplier: "Oak & Grain Ltd",
@@ -103,7 +103,7 @@ export const ordersData: OrderType[] = [
     status: "paid",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 21Y 70cl",
     units: 3500,
     supplier: "Whisky Wonders",
@@ -113,7 +113,7 @@ export const ordersData: OrderType[] = [
     status: "paid",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch Destiny 1L TD",
     units: 750,
     supplier: "Scotch Unveiled",
@@ -123,7 +123,7 @@ export const ordersData: OrderType[] = [
     status: "pending",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 15Y 70cl",
     units: 900,
     supplier: "Scotch Unveiled",
@@ -133,7 +133,7 @@ export const ordersData: OrderType[] = [
     status: "overdue",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 18Y 70cl",
     units: 1200,
     supplier: "Whiskey Whispers",
@@ -143,7 +143,7 @@ export const ordersData: OrderType[] = [
     status: "overdue",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 25Y 70cl",
     units: 1520,
     supplier: "Oak & Grain Ltd",
@@ -153,7 +153,7 @@ export const ordersData: OrderType[] = [
     status: "paid",
   },
   {
-    _id: new ObjectId(),
+    _id: 5,
     product: "Glenalnarch 21Y 70cl",
     units: 3500,
     supplier: "Whisky Wonders",
