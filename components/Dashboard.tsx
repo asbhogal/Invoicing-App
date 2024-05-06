@@ -4,7 +4,7 @@ import { InvoiceData } from "@/lib/types/data";
 import { useEffect, useState } from "react";
 import { DashboardProps } from "@/lib/types/props";
 import DataTable from "./ui/data-table";
-import { columns } from "@/app/suppliers/columns";
+import { columns } from "@/app/orders/columns";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";

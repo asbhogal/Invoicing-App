@@ -57,9 +57,9 @@ export const columns: ColumnDef<OrderType>[] = [
     cell: ({ row }) => <div>{formatDate(row.getValue("dateInvoiced"))}</div>,
   },
   {
-    accessorKey: "paymentDue",
-    header: "Payment Due",
-    cell: ({ row }) => <div>{formatDate(row.getValue("paymentDue"))}</div>,
+    accessorKey: "paymentDate",
+    header: "Payment Date",
+    cell: ({ row }) => <div>{formatDate(row.getValue("paymentDate"))}</div>,
   },
   {
     accessorKey: "status",
