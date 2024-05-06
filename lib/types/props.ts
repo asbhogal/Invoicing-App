@@ -1,9 +1,10 @@
 import { InvoiceData, StatusValue } from "./data";
 import * as z from "zod";
 import { InvoiceFormSchema } from "../schemas";
+import { OrderType } from "./orders";
 
 export interface DashboardProps {
-  invoices?: InvoiceData[];
+  orders?: OrderType[];
 }
 
 export interface FilterProps {

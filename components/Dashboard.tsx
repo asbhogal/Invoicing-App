@@ -22,9 +22,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { Badge } from "./ui/badge";
 import { OrderType } from "@/lib/types/orders";
 
-export default function Dashboard({ invoices }: DashboardProps) {
-  console.log(invoices);
-
+export default function Dashboard({ orders }: DashboardProps) {
   type OverviewDataType = {
     id: number;
     title: string;
@@ -952,7 +950,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
         </div>
         <DataTable<OrderType, unknown>
           columns={columns}
-          data={ordersData as OrderType[]}
+          data={orders as OrderType[]}
         />
       </div>
     </ScrollArea>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <div className="flex flex-col w-full">
-      <Dashboard invoices={ordersData} />
+      <Dashboard orders={ordersData} />
     </div>
   );
 }
