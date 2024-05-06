@@ -1,19 +1,8 @@
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { ApolloServer } from "@apollo/server";
 import { NextRequest } from "next/server";
-import { gql } from "graphql-tag";
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => "Hello world!",
-  },
-};
+import { typeDefs } from "@/app/graphql/typeDefs";
+import { resolvers } from "@/app/graphql/resolvers";
 
 const server = new ApolloServer({
   typeDefs,

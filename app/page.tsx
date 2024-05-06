@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getInvoices } from "@/lib/functions/fetcher";
 import Dashboard from "@/components/Dashboard";
+import { ordersData } from "@/lib/data/orders";
 
 export const metadata: Metadata = {
   title: "Invoicing App",
@@ -8,14 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const data = await getInvoices();
-  const invoices = data?.invoices;
-
-  console.log(invoices);
-
   return (
     <div className="flex flex-col w-full">
-      <Dashboard invoices={invoices} />
+      <Dashboard invoices={ordersData} />
     </div>
   );
 }

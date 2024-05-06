@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-
 export type OrderType = {
   _id: number;
   product: string;
