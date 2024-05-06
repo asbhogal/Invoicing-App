@@ -45,8 +45,8 @@ export default function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-md border-none">
+        <Table className="bg-transparent">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
