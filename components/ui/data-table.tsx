@@ -2,8 +2,10 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
@@ -20,8 +22,10 @@ import {
 } from "@/components/ui/table";
 import { Button } from "./button";
 import { useState } from "react";
+import { Input } from "./input";
 
 interface DataTableProps<TData, TValue> {
+  filterParameter: string;
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
@@ -29,9 +33,11 @@ interface DataTableProps<TData, TValue> {
 export default function DataTable<TData, TValue>({
   columns,
   data,
+  filterParameter,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
     data,
     columns,
@@ -40,14 +46,34 @@ export default function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onRowSelectionChange: setRowSelection,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
-      sorting,
+      columnFilters,
       rowSelection,
+      sorting,
     },
   });
 
   return (
     <>
+      <div>
+        <div className="">
+          <Input
+            placeholder={`Filter ${filterParameter}...`}
+            value={
+              (table.getColumn(filterParameter)?.getFilterValue() as string) ??
+              ""
+            }
+            onChange={(event) =>
+              table
+                .getColumn(filterParameter)
+                ?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        </div>
+      </div>
       <div className="rounded-md border-none">
         <Table className="bg-transparent">
           <TableHeader>

@@ -804,6 +804,7 @@ export default function Dashboard({ orders }: DashboardProps) {
         <DataTable<OrderType, unknown>
           columns={columns}
           data={orders as OrderType[]}
+          filterParameter="product"
         />
       </div>
     </ScrollArea>
