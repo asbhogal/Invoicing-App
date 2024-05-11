@@ -21,6 +21,7 @@ import {
   ArrowDownToLine,
   Printer,
   Save,
+  Send,
   Share,
   TrendingDownIcon,
   TrendingUpIcon,
@@ -93,22 +94,22 @@ export default function Dashboard({ orders }: DashboardProps) {
 
   return (
     <ScrollArea className="h-dvh">
+      <h1 className="sr-only">Dashboard</h1>
       <div className="flex flex-col gap-4 flex-1 px-2 pt-9">
+        <div className="flex gap-4 ml-auto">
+          <Button variant="outline" title="export">
+            <ArrowDownToLine />
+            Export
+          </Button>
+          <Button variant="outline" title="print">
+            <Printer />
+          </Button>
+          <Button variant="outline" title="share">
+            <Send />
+          </Button>
+        </div>
         <div>
           <div>
-            <h1 className="sr-only">Dashboard</h1>
-            <div className="flex gap-4">
-              <Button variant="outline" title="export">
-                <ArrowDownToLine />
-                Export
-              </Button>
-              <Button variant="outline" title="print">
-                <Printer />
-              </Button>
-              <Button variant="outline" title="share">
-                <Share />
-              </Button>
-            </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-4">
               {overviewData.map((card) => (
                 <Card key={card.id} className="text-antiFlashWhite border-none">
