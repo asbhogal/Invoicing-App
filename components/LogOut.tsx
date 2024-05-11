@@ -17,7 +17,7 @@ export default function LogOut() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          className="flex items-center justify-between gap-4 w-full p-4 hover:bg-gray-900 transition rounded-md"
+          className="flex items-center justify-between gap-4 w-full p-4 bg-transparent transition rounded-md"
           title="Log Out"
         >
           <LogOutIcon />

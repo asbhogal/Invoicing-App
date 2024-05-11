@@ -43,7 +43,7 @@ const navBar: NavBarType[] = [
 
 export default function Navbar() {
   return (
-    <header className="flex flex-col items-center justify-between px-2 py-6 m-4 h-dvh fixed w-36">
+    <header className="flex flex-col items-center justify-between px-2 py-6 h-dvh fixed w-fit bg-eerieBlack">
       <nav className="flex flex-col items-center justify-center">
         {navBar.map((item) => (
           <Link

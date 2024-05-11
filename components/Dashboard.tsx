@@ -17,10 +17,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import {
+  ArrowDownToLine,
+  Printer,
+  Save,
+  Share,
+  TrendingDownIcon,
+  TrendingUpIcon,
+} from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { Badge } from "./ui/badge";
 import { OrderType } from "@/lib/types/orders";
+import { Button } from "./ui/button";
 
 export default function Dashboard({ orders }: DashboardProps) {
   type OverviewDataType = {
@@ -73,6 +81,14 @@ export default function Dashboard({ orders }: DashboardProps) {
       change: -77,
       content: "Revenue for Q1",
     },
+    {
+      id: 6,
+      title: "Revenue for Q1",
+      desc: "Revenue for Q1",
+      trend: "down",
+      change: -77,
+      content: "Revenue for Q1",
+    },
   ];
 
   return (
@@ -81,7 +97,19 @@ export default function Dashboard({ orders }: DashboardProps) {
         <div>
           <div>
             <h1 className="sr-only">Dashboard</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div className="flex gap-4">
+              <Button variant="outline" title="export">
+                <ArrowDownToLine />
+                Export
+              </Button>
+              <Button variant="outline" title="print">
+                <Printer />
+              </Button>
+              <Button variant="outline" title="share">
+                <Share />
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-4">
               {overviewData.map((card) => (
                 <Card
                   key={card.id}
