@@ -111,10 +111,7 @@ export default function Dashboard({ orders }: DashboardProps) {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-4">
               {overviewData.map((card) => (
-                <Card
-                  key={card.id}
-                  className="bg-[#100F0F] text-antiFlashWhite border-none"
-                >
+                <Card key={card.id} className="text-antiFlashWhite border-none">
                   <CardHeader>
                     <CardTitle>{card.title}</CardTitle>
                     <CardDescription>{card.desc}</CardDescription>
