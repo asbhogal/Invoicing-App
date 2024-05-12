@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { formatDate } from "@/lib/functions/formatDate";
 import { OrderType } from "@/lib/types/orders";
 
@@ -42,11 +42,39 @@ export const columns: ColumnDef<OrderType>[] = [
   },
   {
     accessorKey: "product",
-    header: "Product",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0 bg-transparent hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Product
+          {column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "units",
-    header: "Units",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0 bg-transparent hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Units
+          {column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "supplier",
@@ -57,14 +85,32 @@ export const columns: ColumnDef<OrderType>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Supplier
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          {column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
         </Button>
       );
     },
   },
   {
     accessorKey: "billed",
-    header: () => <div>Billed</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0 bg-transparent hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Billed
+          {column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("billed"));
       const formatted = new Intl.NumberFormat("en-GB", {
@@ -76,17 +122,59 @@ export const columns: ColumnDef<OrderType>[] = [
   },
   {
     accessorKey: "dateInvoiced",
-    header: "Date Invoiced",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0 bg-transparent hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date Invoiced
+          {column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
+        </Button>
+      );
+    },
     cell: ({ row }) => <div>{formatDate(row.getValue("dateInvoiced"))}</div>,
   },
   {
     accessorKey: "paymentDate",
-    header: "Payment Date",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0 bg-transparent hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Payment Date
+          {column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
+        </Button>
+      );
+    },
     cell: ({ row }) => <div>{formatDate(row.getValue("paymentDate"))}</div>,
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0 bg-transparent hover:bg-transparent"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          {column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
+        </Button>
+      );
+    },
     cell: (cell: CellContext<OrderType, unknown>) => {
       const status = cell.row.original.status as StatusValue;
       return <Status status={status} />;
