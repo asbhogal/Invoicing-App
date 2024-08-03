@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint-staged": "lint-staged",
     "test": "playwright test --ui",
-    "format": "npx prettier . --write",
-    "prepare": "husky install",
+    "format": "npx prettier **/*.{js,jsx,ts,tsx} --write",
+    "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
